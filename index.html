@@ -1,256 +1,299 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tyre Trade Management System</title>
+    <title>TAKEOFF PROJECTS - IEEE Projects 2024-25</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+        
+        :root {
+            --primary: #6c63ff;
+            --secondary: #4a42e8;
+            --accent: #ff6584;
+            --dark: #2d3748;
+            --light: #f7fafc;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            line-height: 1.6;
-        }
-        .header-section {
-            background-color: #f5f5f5;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-        .form-row {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
             display: flex;
-            flex-wrap: wrap;
-            margin-bottom: 10px;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
-        .form-group {
-            margin-right: 20px;
-            margin-bottom: 10px;
+        
+        .project-card {
+            max-width: 800px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
         }
-        label {
-            display: block;
-            font-weight: bold;
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-header {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 25px 30px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .card-header h1 {
+            font-size: 28px;
+            font-weight: 700;
             margin-bottom: 5px;
+            letter-spacing: 1px;
         }
-        select, input {
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            width: 200px;
+        
+        .card-header p {
+            font-size: 16px;
+            opacity: 0.9;
         }
-        .tyre-shape-options {
+        
+        .rocket-icon {
+            position: absolute;
+            top: -20px;
+            right: 30px;
+            font-size: 60px;
+            transform: rotate(-45deg);
+            opacity: 0.2;
+        }
+        
+        .offer-badge {
+            position: absolute;
+            top: 20px;
+            left: -50px;
+            background-color: var(--accent);
+            color: white;
+            padding: 8px 50px;
+            font-weight: 600;
+            transform: rotate(-45deg);
+            font-size: 14px;
+            box-shadow: 0 2px 10px rgba(255, 101, 132, 0.4);
+        }
+        
+        .card-body {
+            padding: 30px;
+        }
+        
+        .domains-section {
+            margin-bottom: 25px;
+        }
+        
+        .section-title {
+            color: var(--dark);
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
-            margin-top: 10px;
         }
-        .tyre-shape-option {
-            margin-right: 15px;
+        
+        .section-title i {
+            margin-right: 10px;
+            color: var(--primary);
         }
-        .tyre-table {
-            width: 100%;
-            border-collapse: collapse;
+        
+        .domains-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
         }
-        .tyre-table th, .tyre-table td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
+        
+        .domain-item {
+            background: rgba(108, 99, 255, 0.1);
+            border-left: 4px solid var(--primary);
+            padding: 12px 15px;
+            border-radius: 0 8px 8px 0;
+            transition: all 0.3s ease;
         }
-        .tyre-table th {
-            background-color: #f2f2f2;
+        
+        .domain-item:hover {
+            background: rgba(108, 99, 255, 0.2);
+            transform: translateX(5px);
         }
-        button {
-            padding: 8px 15px;
-            background-color: #4CAF50;
+        
+        .pricing-section {
+            background: rgba(74, 66, 232, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .pricing-item {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .pricing-item h3 {
+            color: var(--secondary);
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .pricing-item p {
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 20px;
+        }
+        
+        .advance-note {
+            background: rgba(255, 101, 132, 0.1);
+            color: var(--accent);
+            padding: 12px 15px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 25px;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .contact-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .contact-item {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .contact-item i {
+            margin-right: 10px;
+            color: var(--primary);
+            font-size: 20px;
+        }
+        
+        .cta-button {
+            display: block;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
             color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: 600;
+            margin-top: 25px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.3);
         }
-        button.delete-btn {
-            background-color: #f44336;
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(108, 99, 255, 0.4);
         }
-        .add-tyre-btn {
-            margin-top: 10px;
+        
+        @media (max-width: 768px) {
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .card-header h1 {
+                font-size: 24px;
+            }
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <h1>Tyre Management</h1>
-    
-    <div class="header-section">
-        <h2>Tyre Batch Details</h2>
-        
-        <div class="form-row">
-            <div class="form-group">
-                <label for="brand">Brand</label>
-                <select id="brand">
-                    <option value="MRF">MRF</option>
-                    <option value="BKT">BKT</option>
-                    <option value="CEAT">CEAT</option>
-                    <option value="Apollo">Apollo</option>
-                    <option value="JK">JK Tyres</option>
-                </select>
+    <div class="project-card">
+        <div class="card-header">
+            <div class="rocket-icon">
+                <i class="fas fa-rocket"></i>
             </div>
-            
-            <div class="form-group">
-                <label for="subcategory">Subcategory</label>
-                <select id="subcategory">
-                    <option value="Apollo Mine Lug">Apollo Mine Lug</option>
-                    <option value="Apollo Terra BT">Apollo Terra BT</option>
-                    <option value="Apollo Terra Crane">Apollo Terra Crane</option>
-                    <option value="Apollo XT7">Apollo XT7</option>
-                </select>
+            <div class="offer-badge">
+                LIMITED TIME OFFER!
             </div>
-            
-            <div class="form-group">
-                <label for="size">Size</label>
-                <select id="size">
-                    <option value="10.00R20">10.00R20</option>
-                    <option value="11.00R20">11.00R20</option>
-                    <option value="12.00R20">12.00R20</option>
-                </select>
-            </div>
+            <h1>🎓 Orbt_Learn</h1>
+            <p>REAL-WORLD PROJECTS FOR 2024-25 🚀</p>
         </div>
         
-        <div class="form-row">
-            <div class="form-group">
-                <label for="ply">Ply</label>
-                <select id="ply">
-                    <option value="16">16</option>
-                    <option value="18">18</option>
-                    <option value="20">20</option>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label for="pattern">Pattern</label>
-                <select id="pattern">
-                    <option value="Rib">Rib</option>
-                    <option value="Lug">Lug</option>
-                    <option value="All Season">All Season</option>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label for="amount">Amount per Tyre (₹)</label>
-                <input type="number" id="amount" placeholder="Enter amount">
-            </div>
-        </div>
-        
-        <div class="form-row">
-            <div class="form-group">
-                <label for="life">Estimated Life (KM)</label>
-                <input type="number" id="life" placeholder="Enter kilometers">
-            </div>
-            
-            <div class="form-group">
-                <label for="purchase-date">Purchase Date</label>
-                <input type="date" id="purchase-date">
-            </div>
-            
-            <div class="form-group">
-                <label for="invoice">Bill/Invoice No</label>
-                <input type="text" id="invoice" placeholder="Enter invoice number">
-            </div>
-        </div>
-        
-        <div class="form-row">
-            <div class="form-group">
-                <label for="branch">Branch</label>
-                <select id="branch">
-                    <option value="Analappali">Analappali</option>
-                    <option value="Chennai">Chennai</option>
-                    <option value="Bangalore">Bangalore</option>
-                </select>
-            </div>
-        </div>
-        
-        <div class="form-group">
-            <label>Tyre Shape Option</label>
-            <div class="tyre-shape-options">
-                <div class="tyre-shape-option">
-                    <input type="radio" id="standard" name="tyre-shape" value="standard" checked>
-                    <label for="standard">Standard</label>
-                </div>
-                <div class="tyre-shape-option">
-                    <input type="radio" id="option1" name="tyre-shape" value="option1">
-                    <label for="option1">Option 1</label>
-                </div>
-                <div class="tyre-shape-option">
-                    <input type="radio" id="option2" name="tyre-shape" value="option2">
-                    <label for="option2">Option 2</label>
+        <div class="card-body">
+            <div class="domains-section">
+                <h2 class="section-title"><i class="fas fa-bullseye"></i> Get Industry-Relevant Project Titles Now!</h2>
+                <p style="margin-bottom: 15px; color: #4a5568;">Choose from real-world, job-oriented domains like:</p>
+                <div class="domains-grid">
+                    <div class="domain-item">
+                        <i class="fas fa-brain"></i> Machine Learning
+                    </div>
+                    <div class="domain-item">
+                        <i class="fas fa-robot"></i> Artificial Intelligence
+                    </div>
+                    <div class="domain-item">
+                        <i class="fas fa-laptop-code"></i> Web Development
+                    </div>
+                    <div class="domain-item">
+                        <i class="fas fa-mobile-alt"></i> Mobile App Development
+                    </div>
                 </div>
             </div>
+            
+            <div class="pricing-section">
+                <h2 class="section-title"><i class="fas fa-tags"></i> Affordable Price Range:</h2>
+                <div class="pricing-grid">
+                    <div class="pricing-item">
+                        <h3><i class="fas fa-cogs"></i> Custom Projects</h3>
+                        <p>₹5600 – ₹6600</p>
+                    </div>
+                    <div class="pricing-item">
+                        <h3><i class="fas fa-box-open"></i> Readymade Projects</h3>
+                        <p>₹2800 – ₹3600</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="advance-note">
+                <i class="fas fa-lock"></i> Book your project now with just ₹500 advance!
+            </div>
+            
+            <div class="contact-section">
+                <div class="contact-item">
+                    <i class="fas fa-user-tie"></i>
+                    <span>Bimal</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>9348245158</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>orbtlearn@gmail.com</span>
+                </div>
+            </div>
+            
+            <a href="#contact" class="cta-button">
+                <i class="fas fa-paper-plane"></i> Enquire Now
+            </a>
         </div>
     </div>
-    
-    <h2>Tyre Numbers</h2>
-    <table class="tyre-table">
-        <thead>
-            <tr>
-                <th>No.</th>
-                <th>Tyre Number</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody id="tyre-list">
-            <tr>
-                <td>1</td>
-                <td><input type="text" placeholder="Enter tyre number"></td>
-                <td><button class="delete-btn">Delete</button></td>
-            </tr>
-        </tbody>
-    </table>
-    
-    <button class="add-tyre-btn" id="add-tyre">Add New Tyre</button>
-    
-    <div style="margin-top: 20px;">
-        <button id="submit-btn">Submit Tyre Batch</button>
-    </div>
-
-    <script>
-        document.getElementById('add-tyre').addEventListener('click', function() {
-            const table = document.getElementById('tyre-list');
-            const rowCount = table.rows.length;
-            
-            const newRow = table.insertRow();
-            const cell1 = newRow.insertCell(0);
-            const cell2 = newRow.insertCell(1);
-            const cell3 = newRow.insertCell(2);
-            
-            cell1.textContent = rowCount + 1;
-            cell2.innerHTML = '<input type="text" placeholder="Enter tyre number">';
-            cell3.innerHTML = '<button class="delete-btn">Delete</button>';
-            
-            // Add delete functionality
-            cell3.querySelector('button').addEventListener('click', function() {
-                table.deleteRow(newRow.rowIndex);
-                // Update row numbers
-                const rows = table.getElementsByTagName('tr');
-                for (let i = 0; i < rows.length; i++) {
-                    rows[i].cells[0].textContent = i + 1;
-                }
-            });
-        });
-        
-        // Add delete functionality to initial row
-        document.querySelector('.delete-btn').addEventListener('click', function() {
-            const table = document.getElementById('tyre-list');
-            if (table.rows.length > 1) {
-                table.deleteRow(0);
-                // Update row numbers
-                const rows = table.getElementsByTagName('tr');
-                for (let i = 0; i < rows.length; i++) {
-                    rows[i].cells[0].textContent = i + 1;
-                }
-            } else {
-                alert("You need at least one tyre entry.");
-            }
-        });
-        
-        document.getElementById('submit-btn').addEventListener('click', function() {
-            alert('Tyre batch submitted successfully!');
-            // Here you would typically collect all data and send to server
-        });
-    </script>
 </body>
 </html>
