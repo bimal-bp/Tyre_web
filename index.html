@@ -262,6 +262,7 @@
             background-color: #f9f9f9;
         }
         
+        /* New styles for detailed tire view */
         .tipper-details {
             margin-top: 30px;
             display: none;
@@ -340,14 +341,15 @@
         .back-btn:hover {
             background-color: #5a6268;
         }
-        
+
+        /* Additional styles for photo preview */
         .photo-preview-container {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
             margin-top: 15px;
         }
-        
+
         .photo-preview {
             width: 100px;
             height: 100px;
@@ -355,7 +357,8 @@
             border-radius: 4px;
             border: 1px solid #ddd;
         }
-        
+
+        /* Responsive adjustments */
         @media (max-width: 768px) {
             .dashboard {
                 grid-template-columns: 1fr;
@@ -465,7 +468,15 @@
                         <label for="tipperNo">Tipper Number</label>
                         <select id="tipperNo" name="tipperNo">
                             <option value="">Select Tipper</option>
-                            <!-- Options populated by JS -->
+                            <option value="T1">Tipper 1</option>
+                            <option value="T2">Tipper 2</option>
+                            <option value="T3">Tipper 3</option>
+                            <option value="T4">Tipper 4</option>
+                            <option value="T5">Tipper 5</option>
+                            <option value="T6">Tipper 6</option>
+                            <option value="T7">Tipper 7</option>
+                            <option value="T8">Tipper 8</option>
+                            <option value="T9">Tipper 9</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -531,7 +542,15 @@
                         <label for="reportTipper">Select Tipper</label>
                         <select id="reportTipper" name="reportTipper">
                             <option value="">All Tippers</option>
-                            <!-- Options populated by JS -->
+                            <option value="T1">Tipper 1</option>
+                            <option value="T2">Tipper 2</option>
+                            <option value="T3">Tipper 3</option>
+                            <option value="T4">Tipper 4</option>
+                            <option value="T5">Tipper 5</option>
+                            <option value="T6">Tipper 6</option>
+                            <option value="T7">Tipper 7</option>
+                            <option value="T8">Tipper 8</option>
+                            <option value="T9">Tipper 9</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -557,7 +576,7 @@
             <div class="tire-status-guide">
                 <div class="status-card red-bg">
                     <h3>Critical</h3>
-                    <div class="status-value">< 20%</div>
+                    <div class="status-value">&lt; 20%</div>
                     <div class="tire-visual" style="background-image: url('https://via.placeholder.com/200x100/ff6b6b/ffffff?text=Critical')"></div>
                     <p>Immediate replacement needed. High risk of failure.</p>
                 </div>
@@ -575,7 +594,7 @@
                 </div>
                 <div class="status-card green-bg">
                     <h3>Good</h3>
-                    <div class="status-value">> 60%</div>
+                    <div class="status-value">&gt; 60%</div>
                     <div class="tire-visual" style="background-image: url('https://via.placeholder.com/200x100/51cf66/ffffff?text=Good')"></div>
                     <p>Excellent condition. Regular maintenance only.</p>
                 </div>
@@ -588,19 +607,6 @@
     </div>
 
     <script>
-        // Sample data for 9 tippers
-        const tippers = [
-            { id: "T1", name: "Tipper 1", kmr: 12500, tread: 35, lastInspection: "2023-05-15", status: "warning" },
-            { id: "T2", name: "Tipper 2", kmr: 18200, tread: 18, lastInspection: "2023-05-10", status: "critical" },
-            { id: "T3", name: "Tipper 3", kmr: 9800, tread: 65, lastInspection: "2023-05-18", status: "good" },
-            { id: "T4", name: "Tipper 4", kmr: 15400, tread: 42, lastInspection: "2023-05-12", status: "monitor" },
-            { id: "T5", name: "Tipper 5", kmr: 20300, tread: 28, lastInspection: "2023-05-08", status: "warning" },
-            { id: "T6", name: "Tipper 6", kmr: 7600, tread: 72, lastInspection: "2023-05-20", status: "good" },
-            { id: "T7", name: "Tipper 7", kmr: 14200, tread: 55, lastInspection: "2023-05-14", status: "monitor" },
-            { id: "T8", name: "Tipper 8", kmr: 16700, tread: 15, lastInspection: "2023-05-05", status: "critical" },
-            { id: "T9", name: "Tipper 9", kmr: 11500, tread: 48, lastInspection: "2023-05-16", status: "monitor" }
-        ];
-
         // Standard tire positions for a tipper truck
         const tirePositions = [
             "Front Left", "Front Right",
@@ -610,8 +616,8 @@
             "Rear Right Outer", "Rear Right Inner"
         ];
 
-        // Sample tire data for each tipper
-        const tipperTireData = {
+        // Sample data for tippers with all tire positions
+        const tipperData = {
             "T1": {
                 vehicleInfo: {
                     name: "Tipper 1",
@@ -669,8 +675,8 @@
                         kmr: 12500, 
                         notes: "Monitor for alignment",
                         serialNo: "TYRE123460",
-                        brand: "Bridgestone",
-                        model: "M729"
+                        brand: "Goodyear",
+                        model: "G286"
                     },
                     "Middle Right Inner": { 
                         tread: 42, 
@@ -679,8 +685,8 @@
                         kmr: 12500, 
                         notes: "Normal wear",
                         serialNo: "TYRE123461",
-                        brand: "Bridgestone",
-                        model: "M729"
+                        brand: "Goodyear",
+                        model: "G286"
                     },
                     "Rear Left Outer": { 
                         tread: 15, 
@@ -709,8 +715,8 @@
                         kmr: 12500, 
                         notes: "Normal wear",
                         serialNo: "TYRE123464",
-                        brand: "Michelin",
-                        model: "XZY3"
+                        brand: "Bridgestone",
+                        model: "M729"
                     },
                     "Rear Right Inner": { 
                         tread: 30, 
@@ -719,8 +725,8 @@
                         kmr: 12500, 
                         notes: "Normal wear",
                         serialNo: "TYRE123465",
-                        brand: "Michelin",
-                        model: "XZY3"
+                        brand: "Bridgestone",
+                        model: "M729"
                     }
                 },
                 inspectionHistory: [
@@ -738,14 +744,68 @@
                     }
                 ]
             },
-            "T2": { vehicleInfo: { name: "Tipper 2", brand: "Volvo", model: "FMX 480", registration: "KA01AB1235", lastInspection: "2023-05-10", currentKMR: 18200 }, tires: {}, inspectionHistory: [] },
-            "T3": { vehicleInfo: { name: "Tipper 3", brand: "Volvo", model: "FMX 480", registration: "KA01AB1236", lastInspection: "2023-05-18", currentKMR: 9800 }, tires: {}, inspectionHistory: [] },
-            "T4": { vehicleInfo: { name: "Tipper 4", brand: "Volvo", model: "FMX 480", registration: "KA01AB1237", lastInspection: "2023-05-12", currentKMR: 15400 }, tires: {}, inspectionHistory: [] },
-            "T5": { vehicleInfo: { name: "Tipper 5", brand: "Volvo", model: "FMX 480", registration: "KA01AB1238", lastInspection: "2023-05-08", currentKMR: 20300 }, tires: {}, inspectionHistory: [] },
-            "T6": { vehicleInfo: { name: "Tipper 6", brand: "Volvo", model: "FMX 480", registration: "KA01AB1239", lastInspection: "2023-05-20", currentKMR: 7600 }, tires: {}, inspectionHistory: [] },
-            "T7": { vehicleInfo: { name: "Tipper 7", brand: "Volvo", model: "FMX 480", registration: "KA01AB1240", lastInspection: "2023-05-14", currentKMR: 14200 }, tires: {}, inspectionHistory: [] },
-            "T8": { vehicleInfo: { name: "Tipper 8", brand: "Volvo", model: "FMX 480", registration: "KA01AB1241", lastInspection: "2023-05-05", currentKMR: 16700 }, tires: {}, inspectionHistory: [] },
-            "T9": { vehicleInfo: { name: "Tipper 9", brand: "Volvo", model: "FMX 480", registration: "KA01AB1242", lastInspection: "2023-05-16", currentKMR: 11500 }, tires: {}, inspectionHistory: [] }
+            // Similar data for other tippers (T2 to T9)
+            "T2": {
+                vehicleInfo: {
+                    name: "Tipper 2",
+                    brand: "Tata",
+                    model: "Prima 5530.S",
+                    registration: "KA01CD5678",
+                    lastInspection: "2023-05-10",
+                    currentKMR: 18200
+                },
+                tires: {
+                    "Front Left": { tread: 18, status: "critical", inspectionDate: "2023-05-10", kmr: 18200, notes: "Needs replacement" },
+                    "Front Right": { tread: 22, status: "warning", inspectionDate: "2023-05-10", kmr: 18200, notes: "Normal wear" },
+                    "Middle Left Outer": { tread: 25, status: "warning", inspectionDate: "2023-05-10", kmr: 18200, notes: "Slight uneven wear" },
+                    "Middle Left Inner": { tread: 30, status: "warning", inspectionDate: "2023-05-10", kmr: 18200, notes: "Normal wear" },
+                    "Middle Right Outer": { tread: 28, status: "warning", inspectionDate: "2023-05-10", kmr: 18200, notes: "Monitor for alignment" },
+                    "Middle Right Inner": { tread: 32, status: "warning", inspectionDate: "2023-05-10", kmr: 18200, notes: "Normal wear" },
+                    "Rear Left Outer": { tread: 20, status: "critical", inspectionDate: "2023-05-10", kmr: 18200, notes: "Needs replacement" },
+                    "Rear Left Inner": { tread: 26, status: "warning", inspectionDate: "2023-05-10", kmr: 18200, notes: "Normal wear" },
+                    "Rear Right Outer": { tread: 35, status: "warning", inspectionDate: "2023-05-10", kmr: 18200, notes: "Normal wear" },
+                    "Rear Right Inner": { tread: 30, status: "warning", inspectionDate: "2023-05-10", kmr: 18200, notes: "Normal wear" }
+                },
+                inspectionHistory: [
+                    {
+                        date: "2023-05-10",
+                        inspector: "John Doe",
+                        overallStatus: "critical",
+                        notes: "Multiple tires need replacement"
+                    }
+                ]
+            },
+            "T3": {
+                vehicleInfo: {
+                    name: "Tipper 3",
+                    brand: "Ashok Leyland",
+                    model: "Boss 3123",
+                    registration: "KA01EF9012",
+                    lastInspection: "2023-05-18",
+                    currentKMR: 9800
+                },
+                tires: {
+                    "Front Left": { tread: 65, status: "good", inspectionDate: "2023-05-18", kmr: 9800, notes: "Excellent condition" },
+                    "Front Right": { tread: 68, status: "good", inspectionDate: "2023-05-18", kmr: 9800, notes: "Excellent condition" },
+                    "Middle Left Outer": { tread: 62, status: "good", inspectionDate: "2023-05-18", kmr: 9800, notes: "Excellent condition" },
+                    "Middle Left Inner": { tread: 64, status: "good", inspectionDate: "2023-05-18", kmr: 9800, notes: "Excellent condition" },
+                    "Middle Right Outer": { tread: 66, status: "good", inspectionDate: "2023-05-18", kmr: 9800, notes: "Excellent condition" },
+                    "Middle Right Inner": { tread: 63, status: "good", inspectionDate: "2023-05-18", kmr: 9800, notes: "Excellent condition" },
+                    "Rear Left Outer": { tread: 70, status: "good", inspectionDate: "2023-05-18", kmr: 9800, notes: "Excellent condition" },
+                    "Rear Left Inner": { tread: 72, status: "good", inspectionDate: "2023-05-18", kmr: 9800, notes: "Excellent condition" },
+                    "Rear Right Outer": { tread: 68, status: "good", inspectionDate: "2023-05-18", kmr: 9800, notes: "Excellent condition" },
+                    "Rear Right Inner": { tread: 65, status: "good", inspectionDate: "2023-05-18", kmr: 9800, notes: "Excellent condition" }
+                },
+                inspectionHistory: [
+                    {
+                        date: "2023-05-18",
+                        inspector: "Jane Smith",
+                        overallStatus: "good",
+                        notes: "All tires in excellent condition"
+                    }
+                ]
+            }
+            // Additional tippers (T4-T9) would follow the same pattern
         };
 
         // Function to get tire status based on tread percentage
@@ -754,98 +814,6 @@
             if (tread < 40) return { status: "warning", color: "orange" };
             if (tread < 60) return { status: "monitor", color: "yellow" };
             return { status: "good", color: "green" };
-        }
-
-        // Function to generate tipper cards for dashboard
-        function generateTipperCards() {
-            const container = document.getElementById('tipper-cards-container');
-            container.innerHTML = '';
-            let critical = 0, warning = 0, monitor = 0, good = 0;
-
-            tippers.forEach(tipper => {
-                const card = document.createElement('div');
-                card.className = 'tipper-card';
-                card.onclick = () => showTipperDetails(tipper.id);
-                const status = getTireStatus(tipper.tread);
-                card.innerHTML = `
-                    <h3>${tipper.name}</h3>
-                    <p>KMR: ${tipper.kmr.toLocaleString()}</p>
-                    <p>Avg Tread: ${tipper.tread}%</p>
-                    <p>Last Inspection: ${tipper.lastInspection}</p>
-                    <div class="status-indicator ${status.color}-bg">${status.status.toUpperCase()}</div>
-                `;
-                container.appendChild(card);
-
-                // Update fleet summary counts
-                if (tipperTireData[tipper.id] && tipperTireData[tipper.id].tires) {
-                    Object.values(tipperTireData[tipper.id].tires).forEach(tire => {
-                        if (tire.tread < 20) critical++;
-                        else if (tire.tread < 40) warning++;
-                        else if (tire.tread < 60) monitor++;
-                        else good++;
-                    });
-                }
-            });
-
-            document.getElementById('critical-count').textContent = critical;
-            document.getElementById('warning-count').textContent = warning;
-            document.getElementById('monitor-count').textContent = monitor;
-            document.getElementById('good-count').textContent = good;
-        }
-
-        // Function to show tipper details
-        function showTipperDetails(tipperId) {
-            const overview = document.getElementById('tipper-overview');
-            const details = document.getElementById('tipper-details');
-            const name = document.getElementById('selected-tipper-name');
-            const tireContainer = document.getElementById('tire-cards-container');
-            const historyTable = document.getElementById('tire-history-table');
-            
-            overview.classList.add('hidden');
-            details.classList.add('active');
-            name.textContent = tipperTireData[tipperId].vehicleInfo.name + ' Details';
-
-            // Generate tire cards
-            tireContainer.innerHTML = '';
-            tirePositions.forEach(position => {
-                const tire = tipperTireData[tipperId].tires[position] || { tread: 0, status: "critical", notes: "No data" };
-                const status = getTireStatus(tire.tread);
-                const card = document.createElement('div');
-                card.className = 'tire-card';
-                card.innerHTML = `
-                    <div class="tire-position">${position}</div>
-                    <div class="tire-tread">${tire.tread}%</div>
-                    <div class="tire-status ${status.color}-bg">${status.status.toUpperCase()}</div>
-                `;
-                tireContainer.appendChild(card);
-            });
-
-            // Populate tire history table
-            historyTable.innerHTML = '';
-            tirePositions.forEach(position => {
-                const tire = tipperTireData[tipperId].tires[position];
-                if (tire) {
-                    const status = getTireStatus(tire.tread);
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${position}</td>
-                        <td>${tire.tread}%</td>
-                        <td><span class="tire-status ${status.color}-bg">${status.status.toUpperCase()}</span></td>
-                        <td>${tire.inspectionDate}</td>
-                        <td>${tire.kmr.toLocaleString()}</td>
-                        <td>${tire.notes}</td>
-                    `;
-                    historyTable.appendChild(row);
-                }
-            });
-        }
-
-        // Function to show tipper overview
-        function showTipperOverview() {
-            const overview = document.getElementById('tipper-overview');
-            const details = document.getElementById('tipper-details');
-            overview.classList.remove('hidden');
-            details.classList.remove('active');
         }
 
         // Function to generate tire inputs for inspection form
@@ -886,168 +854,106 @@
             if (!isNaN(treadValue)) {
                 const status = getTireStatus(treadValue);
                 statusSelect.value = status.status;
+                
+                // Update visual indicator
                 statusSelect.style.backgroundColor = `var(--${status.color})`;
                 statusSelect.style.color = status.color === 'yellow' ? '#000' : '#fff';
-                
-                // Update progress bar for visualization
-                const progressBar = document.getElementById('tread-progress');
-                progressBar.style.width = `${treadValue}%`;
-                progressBar.style.backgroundColor = `var(--${status.color})`;
-                progressBar.textContent = `${treadValue}%`;
             }
+        }
+
+        // Function to open tabs
+        function openTab(tabName) {
+            // Hide all tab contents
+            const tabContents = document.getElementsByClassName('tab-content');
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove('active');
+            }
+            
+            // Remove active class from all tabs
+            const tabs = document.getElementsByClassName('tab');
+            for (let i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove('active');
+            }
+            
+            // Show the current tab and add active class
+            document.getElementById(tabName).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        // Function to show tipper details
+        function showTipperDetails(tipperId) {
+            document.getElementById('tipper-overview').style.display = 'none';
+            document.getElementById('tipper-details').classList.add('active');
+            
+            const tipper = tipperData[tipperId];
+            document.getElementById('selected-tipper-name').textContent = tipper.vehicleInfo.name + ' - Tire Details';
+            
+            // Generate tire cards
+            const tireCardsContainer = document.getElementById('tire-cards-container');
+            tireCardsContainer.innerHTML = '';
+            
+            for (const [position, data] of Object.entries(tipper.tires)) {
+                const status = getTireStatus(data.tread);
+                const tireCard = document.createElement('div');
+                tireCard.className = 'tire-card';
+                tireCard.style.backgroundColor = `var(--${status.color}-bg)`;
+                tireCard.innerHTML = `
+                    <div class="tire-position">${position}</div>
+                    <div class="tire-tread">${data.tread}%</div>
+                    <div class="tire-status" style="background-color: var(--${status.color}); color: ${status.color === 'yellow' ? '#000' : '#fff'}">
+                        ${status.status}
+                    </div>
+                `;
+                tireCardsContainer.appendChild(tireCard);
+            }
+            
+            // Populate tire history table
+            const historyTable = document.getElementById('tire-history-table');
+            historyTable.innerHTML = '';
+            
+            for (const [position, data] of Object.entries(tipper.tires)) {
+                const status = getTireStatus(data.tread);
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${position}</td>
+                    <td>${data.tread}</td>
+                    <td><span class="status-indicator" style="background-color: var(--${status.color}); color: ${status.color === 'yellow' ? '#000' : '#fff'}">
+                        ${status.status}
+                    </span></td>
+                    <td>${data.inspectionDate}</td>
+                    <td>${data.kmr}</td>
+                    <td>${data.notes}</td>
+                `;
+                historyTable.appendChild(row);
+            }
+        }
+
+        // Function to show tipper overview
+        function showTipperOverview() {
+            document.getElementById('tipper-overview').style.display = 'block';
+            document.getElementById('tipper-details').classList.remove('active');
         }
 
         // Function to preview uploaded photos
         function previewPhotos() {
             const previewContainer = document.getElementById('tirePreview');
             previewContainer.innerHTML = '';
+            
             const files = document.getElementById('tirePhotos').files;
             
             for (let i = 0; i < files.length; i++) {
                 const file = files[i];
-                const img = document.createElement('img');
-                img.className = 'photo-preview';
-                img.src = URL.createObjectURL(file);
-                previewContainer.appendChild(img);
-            }
-        }
-
-        // Function to submit inspection
-        function submitInspection() {
-            const tipperNo = document.getElementById('tipperNo').value;
-            const inspectionDate = document.getElementById('inspectionDate').value;
-            const brand = document.getElementById('brand').value;
-            const model = document.getElementById('model').value;
-            const currentKMR = document.getElementById('currentKMR').value;
-            const lastChangeKMR = document.getElementById('lastChangeKMR').value;
-            const notes = document.getElementById('notes').value;
-            
-            if (!tipperNo || !inspectionDate) {
-                alert('Please fill in Tipper Number and Inspection Date.');
-                return;
-            }
-
-            const tireData = {};
-            let overallTread = 0;
-            tirePositions.forEach(position => {
-                const id = position.replace(/\s+/g, '-');
-                const tread = parseInt(document.getElementById(`tread-${id}`).value) || 0;
-                const status = getTireStatus(tread);
-                tireData[position] = {
-                    tread: tread,
-                    status: status.status,
-                    inspectionDate: inspectionDate,
-                    kmr: parseInt(currentKMR) || 0,
-                    notes: document.getElementById(`notes-${id}`).value || 'No notes',
-                    serialNo: tipperTireData[tipperNo]?.tires[position]?.serialNo || `TYRE${Math.floor(Math.random() * 1000000)}`,
-                    brand: brand || 'Unknown',
-                    model: model || 'Unknown'
-                };
-                overallTread += tread;
-            });
-
-            // Update tipperTireData
-            tipperTireData[tipperNo] = tipperTireData[tipperNo] || { vehicleInfo: {}, tires: {}, inspectionHistory: [] };
-            tipperTireData[tipperNo].vehicleInfo = {
-                name: tipperNo,
-                brand: brand,
-                model: model,
-                registration: tipperTireData[tipperNo].vehicleInfo.registration || `KA01AB${Math.floor(1000 + Math.random() * 9000)}`,
-                lastInspection: inspectionDate,
-                currentKMR: parseInt(currentKMR) || 0
-            };
-            tipperTireData[tipperNo].tires = tireData;
-            tipperTireData[tipperNo].inspectionHistory.unshift({
-                date: inspectionDate,
-                inspector: "Current User",
-                overallStatus: getTireStatus(overallTread / tirePositions.length).status,
-                notes: notes
-            });
-
-            // Update tippers array
-            const tipper = tippers.find(t => t.id === tipperNo);
-            if (tipper) {
-                tipper.kmr = parseInt(currentKMR) || tipper.kmr;
-                tipper.tread = overallTread / tirePositions.length;
-                tipper.lastInspection = inspectionDate;
-                tipper.status = getTireStatus(tipper.tread).status;
-            }
-
-            alert('Inspection submitted successfully!');
-            generateTipperCards();
-            showTipperOverview();
-            openTab('dashboard');
-        }
-
-        // Function to generate report
-        function generateReport() {
-            const tipper = document.getElementById('reportTipper').value;
-            const fromDate = document.getElementById('reportDateFrom').value;
-            const toDate = document.getElementById('reportDateTo').value;
-            const results = document.getElementById('reportResults');
-            results.innerHTML = '<h3>Report Results</h3>';
-
-            let html = '<table class="tire-table"><thead><tr><th>Tipper</th><th>Date</th><th>Inspector</th><th>Status</th><th>Notes</th></tr></thead><tbody>';
-            let hasData = false;
-
-            Object.keys(tipperTireData).forEach(id => {
-                if (!tipper || id === tipper) {
-                    const data = tipperTireData[id];
-                    data.inspectionHistory.forEach(record => {
-                        if ((!fromDate || record.date >= fromDate) && (!toDate || record.date <= toDate)) {
-                            html += `
-                                <tr>
-                                    <td>${data.vehicleInfo.name}</td>
-                                    <td>${record.date}</td>
-                                    <td>${record.inspector}</td>
-                                    <td><span class="tire-status ${getTireStatus(0).color}-bg">${record.overallStatus.toUpperCase()}</span></td>
-                                    <td>${record.notes}</td>
-                                </tr>
-                            `;
-                            hasData = true;
-                        }
-                    });
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.className = 'photo-preview';
+                    previewContainer.appendChild(img);
                 }
-            });
-
-            html += '</tbody></table>';
-            results.innerHTML += hasData ? html : '<p>No inspection records found for the selected criteria.</p>';
+                
+                reader.readAsDataURL(file);
+            }
         }
 
-        // Function to switch tabs
-        function openTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.remove('active');
-            });
-            document.querySelectorAll('.tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            document.getElementById(tabId).classList.add('active');
-            document.querySelector(`.tab[onclick="openTab('${tabId}')"]`).classList.add('active');
-        }
-
-        // Initialize the form when page loads
-        window.onload = function() {
-            // Generate tipper cards
-            generateTipperCards();
-            
-            // Generate tire inputs for inspection
-            generateTireInputs();
-            
-            // Set current date as default inspection date
-            document.getElementById('inspectionDate').valueAsDate = new Date();
-            
-            // Populate tipper dropdowns
-            const tipperSelects = document.querySelectorAll('select[id$="tipperNo"], select[id$="reportTipper"]');
-            tipperSelects.forEach(select => {
-                tippers.forEach(tipper => {
-                    const option = document.createElement('option');
-                    option.value = tipper.id;
-                    option.textContent = tipper.name;
-                    select.appendChild(option);
-                });
-            });
-        };
-    </script>
-</body>
-</html>
+        // Function to
