@@ -694,14 +694,144 @@
                 { position: "Rear Right Outer", tread: 68, status: "good", inspectionDate: "2023-05-20", kmr: 7600, notes: "Good condition" },
                 { position: "Rear Right Inner", tread: 72, status: "good", inspectionDate: "2023-05-20", kmr: 7600, notes: "Excellent condition" }
             ],
-            "T7": [
-                { position: "Front Left", tread: 58, status: "monitor", inspectionDate: "2023-05-14", kmr: 14200, notes: "Good condition" },
-                { position: "Front Right", tread: 55, status: "monitor", inspectionDate: "2023-05-14", kmr: 14200, notes: "Good condition" },
-                { position: "Middle Left Outer", tread: 52, status: "monitor", inspectionDate: "2023-05-14", kmr: 14200, notes: "Good condition" },
-                { position: "Middle Left Inner", tread: 56, status: "monitor", inspectionDate: "2023-05-14", kmr: 14200, notes: "Good condition" },
-                { position: "Middle Right Outer", tread: 50, status: "monitor", inspectionDate: "2023-05-14", kmr: 14200, notes: "Good condition" },
-                { position: "Middle Right Inner", tread: 58, status: "monitor", inspectionDate: "2023-05-14", kmr: 14200, notes: "Good condition" },
-                { position: "Rear Left Outer", tread: 55, status: "monitor", inspectionDate: "2023-05-14", kmr: 14200, notes: "Good condition" },
-                { position: "Rear Left Inner", tread: 52, status: "monitor", inspectionDate: "2023-05-14", kmr: 14200, notes: "Good condition" },
-                { position: "Rear Right Outer", tread: 50, status: "monitor", inspectionDate: "2023-05-14", kmr: 14200, notes: "Good condition" },
-                { position
+// Standard tire positions for a tipper truck
+const tirePositions = [
+    "Front Left", "Front Right",
+    "Middle Left Outer", "Middle Left Inner",
+    "Middle Right Outer", "Middle Right Inner",
+    "Rear Left Outer", "Rear Left Inner",
+    "Rear Right Outer", "Rear Right Inner"
+];
+
+// Sample data for one tipper with all tire positions
+const tipperTireData = {
+    "T1": {
+        vehicleInfo: {
+            name: "Tipper 1",
+            brand: "Volvo",
+            model: "FMX 480",
+            registration: "KA01AB1234",
+            lastInspection: "2023-05-15",
+            currentKMR: 12500
+        },
+        tires: {
+            "Front Left": { 
+                tread: 38, 
+                status: "warning", 
+                inspectionDate: "2023-05-15", 
+                kmr: 12500, 
+                notes: "Normal wear",
+                serialNo: "TYRE123456",
+                brand: "Michelin",
+                model: "XZY3"
+            },
+            "Front Right": { 
+                tread: 32, 
+                status: "warning", 
+                inspectionDate: "2023-05-15", 
+                kmr: 12500, 
+                notes: "Normal wear",
+                serialNo: "TYRE123457",
+                brand: "Michelin",
+                model: "XZY3"
+            },
+            "Middle Left Outer": { 
+                tread: 35, 
+                status: "warning", 
+                inspectionDate: "2023-05-15", 
+                kmr: 12500, 
+                notes: "Slight uneven wear",
+                serialNo: "TYRE123458",
+                brand: "Bridgestone",
+                model: "M729"
+            },
+            // ... (similar data for all other positions)
+        },
+        inspectionHistory: [
+            {
+                date: "2023-05-15",
+                inspector: "John Doe",
+                overallStatus: "warning",
+                notes: "Rear Left Outer needs replacement soon"
+            },
+            {
+                date: "2023-04-10",
+                inspector: "Jane Smith",
+                overallStatus: "monitor",
+                notes: "All tires in acceptable condition"
+            }
+        ]
+    }
+};
+
+// Function to get tire status based on tread percentage
+function getTireStatus(tread) {
+    if (tread < 20) return { status: "critical", color: "red" };
+    if (tread < 40) return { status: "warning", color: "orange" };
+    if (tread < 60) return { status: "monitor", color: "yellow" };
+    return { status: "good", color: "green" };
+}
+
+// Function to generate tire inputs for inspection form
+function generateTireInputs() {
+    const container = document.getElementById('tire-position-inputs');
+    container.innerHTML = '';
+    
+    tirePositions.forEach(position => {
+        const group = document.createElement('div');
+        group.className = 'form-group';
+        group.innerHTML = `
+            <label for="tread-${position.replace(/\s+/g, '-')}">${position}</label>
+            <div class="form-row">
+                <input type="number" id="tread-${position.replace(/\s+/g, '-')}" 
+                    name="tread-${position.replace(/\s+/g, '-')}" 
+                    min="0" max="100" placeholder="Tread %"
+                    onchange="updateTireStatus('${position.replace(/\s+/g, '-')}')">
+                <select id="status-${position.replace(/\s+/g, '-')}" name="status-${position.replace(/\s+/g, '-')}" disabled>
+                    <option value="good">Good</option>
+                    <option value="monitor">Monitor</option>
+                    <option value="warning">Warning</option>
+                    <option value="critical">Critical</option>
+                </select>
+            </div>
+            <textarea id="notes-${position.replace(/\s+/g, '-')}" name="notes-${position.replace(/\s+/g, '-')}" 
+                rows="2" placeholder="Notes" style="width: 100%; margin-top: 5px;"></textarea>
+        `;
+        container.appendChild(group);
+    });
+}
+
+// Function to auto-update status based on tread input
+function updateTireStatus(positionId) {
+    const treadInput = document.getElementById(`tread-${positionId}`);
+    const statusSelect = document.getElementById(`status-${positionId}`);
+    const treadValue = parseInt(treadInput.value);
+    
+    if (!isNaN(treadValue)) {
+        const status = getTireStatus(treadValue);
+        statusSelect.value = status.status;
+        
+        // Update visual indicator
+        statusSelect.style.backgroundColor = `var(--${status.color})`;
+        statusSelect.style.color = status.color === 'yellow' ? '#000' : '#fff';
+    }
+}
+
+// Initialize the form when page loads
+window.onload = function() {
+    generateTireInputs();
+    
+    // Set current date as default inspection date
+    document.getElementById('inspectionDate').valueAsDate = new Date();
+    
+    // Populate tipper dropdowns
+    const tipperSelects = document.querySelectorAll('select[id$="tipperNo"], select[id$="reportTipper"]');
+    tipperSelects.forEach(select => {
+        for (let i = 1; i <= 9; i++) {
+            const option = document.createElement('option');
+            option.value = `T${i}`;
+            option.textContent = `Tipper ${i}`;
+            select.appendChild(option);
+        }
+    });
+};
