@@ -132,6 +132,712 @@
             font-weight: 600;
         }
         
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        .photo-upload {
+            text-align: center;
+            margin: 20px 0;
+            padding: 20px;
+            border: 2px dashed #ccc;
+            border-radius: var(--border-radius);
+            background: #fafafa;
+        }
+        
+        .btn {
+            background-color: var(--dark-blue);
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #1a252f;
+        }
+        
+        .tire-status-guide {
+            margin-top: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .status-card {
+            padding: 15px;
+            border-radius: var(--border-radius);
+            text-align: center;
+        }
+        
+        .status-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .tire-visual {
+            height: 100px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: 15px 0;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .progress-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 20px;
+            margin: 15px 0;
+        }
+        
+        .progress-bar {
+            height: 20px;
+            border-radius: 20px;
+            text-align: center;
+            line-height: 20px;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .tab.active {
+            border-bottom: 3px solid var(--dark-blue);
+            font-weight: bold;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .tire-position-diagram {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .tire-position-diagram img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .tire-details {
+            margin-top: 20px;
+        }
+        
+        .tire-detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .tire-detail-row:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        /* New styles for detailed tire view */
+        .tipper-details {
+            margin-top: 30px;
+            display: none;
+        }
+        
+        .tipper-details.active {
+            display: block;
+        }
+        
+        .tire-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .tire-card {
+            padding: 10px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .tire-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .tire-position {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .tire-tread {
+            font-size: 1.2rem;
+            margin: 5px 0;
+        }
+        
+        .tire-status {
+            font-size: 0.9rem;
+            padding: 3px 8px;
+            border-radius: 12px;
+            display: inline-block;
+        }
+        
+        .tire-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        .tire-table th, .tire-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .tire-table th {
+            background-color: var(--dark-blue);
+            color: white;
+        }
+        
+        .tire-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .tire-table tr:hover {
+            background-color: #f1f1f1;
+        }
+        
+        .back-btn {
+            margin-bottom: 15px;
+            background-color: #6c757d;
+        }
+        
+        .back-btn:hover {
+            background-color: #5a6268;
+        }
+
+        /* Additional styles for photo preview */
+        .photo-preview-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .photo-preview {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            .tire-status-guide {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-row {
+                flex-direction: column;
+            }
+            
+            .form-group {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Truck Tire Inspection System</h1>
+        
+        <div class="tabs">
+            <div class="tab active" onclick="openTab('dashboard')">Dashboard</div>
+            <div class="tab" onclick="openTab('inspection')">Inspection</div>
+            <div class="tab" onclick="openTab('reports')">Reports</div>
+        </div>
+        
+        <div id="dashboard" class="tab-content active">
+            <div id="tipper-overview">
+                <h2>Tipper Fleet Overview</h2>
+                <div class="dashboard" id="tipper-cards-container">
+                    <!-- Tipper cards will be generated by JavaScript -->
+                </div>
+                
+                <div class="form-section">
+                    <h3>Fleet Summary</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <div class="status-card red-bg">
+                                <h4>Critical Tires</h4>
+                                <div class="status-value" id="critical-count">0</div>
+                                <div>Below 20% tread</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="status-card orange-bg">
+                                <h4>Warning Tires</h4>
+                                <div class="status-value" id="warning-count">0</div>
+                                <div>20-40% tread</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="status-card yellow-bg">
+                                <h4>Monitor Tires</h4>
+                                <div class="status-value" id="monitor-count">0</div>
+                                <div>40-60% tread</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="status-card green-bg">
+                                <h4>Good Tires</h4>
+                                <div class="status-value" id="good-count">0</div>
+                                <div>Above 60% tread</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="tipper-details" class="tipper-details">
+                <button class="btn back-btn" onclick="showTipperOverview()">← Back to Fleet Overview</button>
+                <h2 id="selected-tipper-name">Tipper Details</h2>
+                
+                <div class="form-section">
+                    <h3>Tire Conditions</h3>
+                    <div class="tire-grid" id="tire-cards-container">
+                        <!-- Tire cards will be generated when tipper is selected -->
+                    </div>
+                    
+                    <h3>Tire Inspection History</h3>
+                    <table class="tire-table">
+                        <thead>
+                            <tr>
+                                <th>Position</th>
+                                <th>Tread %</th>
+                                <th>Status</th>
+                                <th>Inspection Date</th>
+                                <th>KMR</th>
+                                <th>Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tire-history-table">
+                            <!-- Tire history will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <div id="inspection" class="tab-content">
+            <div class="form-section">
+                <h2>Vehicle Information</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="tipperNo">Tipper Number</label>
+                        <select id="tipperNo" name="tipperNo">
+                            <option value="">Select Tipper</option>
+                            <option value="T1">Tipper 1</option>
+                            <option value="T2">Tipper 2</option>
+                            <option value="T3">Tipper 3</option>
+                            <option value="T4">Tipper 4</option>
+                            <option value="T5">Tipper 5</option>
+                            <option value="T6">Tipper 6</option>
+                            <option value="T7">Tipper 7</option>
+                            <option value="T8">Tipper 8</option>
+                            <option value="T9">Tipper 9</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="inspectionDate">Inspection Date</label>
+                        <input type="date" id="inspectionDate" name="inspectionDate">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="brand">Brand</label>
+                        <input type="text" id="brand" name="brand">
+                    </div>
+                    <div class="form-group">
+                        <label for="model">Model</label>
+                        <input type="text" id="model" name="model">
+                    </div>
+                </div>
+                
+                <div class="tire-position-diagram">
+                    <h3>Tire Positions</h3>
+                    <img src="https://via.placeholder.com/600x300?text=Tire+Position+Diagram" alt="Tire position diagram">
+                </div>
+                
+                <div class="tire-details">
+                    <h3>Tire Measurements</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="currentKMR">Current KMR</label>
+                            <input type="number" id="currentKMR" name="currentKMR">
+                        </div>
+                        <div class="form-group">
+                            <label for="lastChangeKMR">Last Change KMR</label>
+                            <input type="number" id="lastChangeKMR" name="lastChangeKMR">
+                        </div>
+                    </div>
+                    
+                    <h4>Tire Tread Percentage</h4>
+                    <div id="tire-position-inputs">
+                        <!-- Tire position inputs will be generated by JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="photo-upload">
+                    <h3>Upload Tire Photos</h3>
+                    <input type="file" id="tirePhotos" name="tirePhotos" multiple accept="image/*" onchange="previewPhotos()">
+                    <div id="tirePreview" class="photo-preview-container"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="notes">Inspection Notes</label>
+                    <textarea id="notes" name="notes" rows="4" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;"></textarea>
+                </div>
+                
+                <button class="btn" type="button" onclick="submitInspection()">Submit Inspection</button>
+            </div>
+        </div>
+        
+        <div id="reports" class="tab-content">
+            <h2>Inspection Reports</h2>
+            <div class="form-section">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="reportTipper">Select Tipper</label>
+                        <select id="reportTipper" name="reportTipper">
+                            <option value="">All Tippers</option>
+                            <option value="T1">Tipper 1</option>
+                            <option value="T2">Tipper 2</option>
+                            <option value="T3">Tipper 3</option>
+                            <option value="T4">Tipper 4</option>
+                            <option value="T5">Tipper 5</option>
+                            <option value="T6">Tipper 6</option>
+                            <option value="T7">Tipper 7</option>
+                            <option value="T8">Tipper 8</option>
+                            <option value="T9">Tipper 9</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="reportDateFrom">From Date</label>
+                        <input type="date" id="reportDateFrom" name="reportDateFrom">
+                    </div>
+                    <div class="form-group">
+                        <label for="reportDateTo">To Date</label>
+                        <input type="date" id="reportDateTo" name="reportDateTo">
+                    </div>
+                </div>
+                
+                <button class="btn" type="button" onclick="generateReport()">Generate Report</button>
+                
+                <div id="reportResults" style="margin-top: 20px;">
+                    <!-- Report results will be displayed here -->
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-section">
+            <h2>Tire Status Guide</h2>
+            <div class="tire-status-guide">
+                <div class="status-card red-bg">
+                    <h3>Critical</h3>
+                    <div class="status-value">&lt; 20%</div>
+                    <div class="tire-visual" style="background-image: url('https://via.placeholder.com/200x100/ff6b6b/ffffff?text=Critical')"></div>
+                    <p>Immediate replacement needed. High risk of failure.</p>
+                </div>
+                <div class="status-card orange-bg">
+                    <h3>Warning</h3>
+                    <div class="status-value">20-40%</div>
+                    <div class="tire-visual" style="background-image: url('https://via.placeholder.com/200x100/ffa502/ffffff?text=Warning')"></div>
+                    <p>Monitor closely. Replace within 1-2 weeks.</p>
+                </div>
+                <div class="status-card yellow-bg">
+                    <h3>Monitor</h3>
+                    <div class="status-value">40-60%</div>
+                    <div class="tire-visual" style="background-image: url('https://via.placeholder.com/200x100/ffd32a/000000?text=Monitor')"></div>
+                    <p>Normal wear. Schedule next inspection.</p>
+                </div>
+                <div class="status-card green-bg">
+                    <h3>Good</h3>
+                    <div class="status-value">&gt; 60%</div>
+                    <div class="tire-visual" style="background-image: url('https://via.placeholder.com/200x100/51cf66/ffffff?text=Good')"></div>
+                    <p>Excellent condition. Regular maintenance only.</p>
+                </div>
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-bar" id="tread-progress" style="width: 0%; background-color: var(--red);">0%</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample data for 9 tippers
+        const tippers = [
+            { id: "T1", name: "Tipper 1", kmr: 12500, tread: 35, lastInspection: "2023-05-15", status: "warning" },
+            { id: "T2", name: "Tipper 2", kmr: 18200, tread: 18, lastInspection: "2023-05-10", status: "critical" },
+            { id: "T3", name: "Tipper 3", kmr: 9800, tread: 65, lastInspection: "2023-05-18", status: "good" },
+            { id: "T4", name: "Tipper 4", kmr: 15400, tread: 42, lastInspection: "2023-05-12", status: "monitor" },
+            { id: "T5", name: "Tipper 5", kmr: 20300, tread: 28, lastInspection: "2023-05-08", status: "warning" },
+            { id: "T6", name: "Tipper 6", kmr: 7600, tread: 72, lastInspection: "2023-05-20", status: "good" },
+            { id: "T7", name: "Tipper 7", kmr: 14200, tread: 55, lastInspection: "2023-05-14", status: "monitor" },
+            { id: "T8", name: "Tipper 8", kmr: 16700, tread: 15, lastInspection: "2023-05-05", status: "critical" },
+            { id: "T9", name: "Tipper 9", kmr: 11500, tread: 48, lastInspection: "2023-05-16", status: "monitor" }
+        ];
+
+        // Sample tire data for each tipper
+        const tireData = {
+            "T1": [
+                { position: "Front Left", tread: 38, status: "warning", inspectionDate: "2023-05-15", kmr: 12500, notes: "Normal wear" },
+                { position: "Front Right", tread: 32, status: "warning", inspectionDate: "2023-05-15", kmr: 12500, notes: "Normal wear" },
+                { position: "Middle Left Outer", tread: 35, status: "warning", inspectionDate: "2023-05-15", kmr: 12500, notes: "Slight uneven wear" },
+                { position: "Middle Left Inner", tread: 40, status: "monitor", inspectionDate: "2023-05-15", kmr: 12500, notes: "Normal wear" },
+                { position: "Middle Right Outer", tread: 28, status: "warning", inspectionDate: "2023-05-15", kmr: 12500, notes: "Monitor for alignment" },
+                { position: "Middle Right Inner", tread: 42, status: "monitor", inspectionDate: "2023-05-15", kmr: 12500, notes: "Normal wear" },
+                { position: "Rear Left Outer", tread: 15, status: "critical", inspectionDate: "2023-05-15", kmr: 12500, notes: "Needs immediate replacement" },
+                { position: "Rear Left Inner", tread: 36, status: "warning", inspectionDate: "2023-05-15", kmr: 12500, notes: "Normal wear" },
+                { position: "Rear Right Outer", tread: 45, status: "monitor", inspectionDate: "2023-05-15", kmr: 12500, notes: "Normal wear" },
+                { position: "Rear Right Inner", tread: 30, status: "warning", inspectionDate: "2023-05-15", kmr: 12500, notes: "Normal wear" }
+            ],
+            "T2": [
+                { position: "Front Left", tread: 12, status: "critical", inspectionDate: "2023-05-10", kmr: 18200, notes: "Needs immediate replacement" },
+                { position: "Front Right", tread: 18, status: "critical", inspectionDate: "2023-05-10", kmr: 18200, notes: "Needs replacement" },
+                { position: "Middle Left Outer", tread: 22, status: "warning", inspectionDate: "2023-05-10", kmr: 18200, notes: "Monitor closely" },
+                { position: "Middle Left Inner", tread: 25, status: "warning", inspectionDate: "2023-05-10", kmr: 18200, notes: "Monitor closely" },
+                { position: "Middle Right Outer", tread: 20, status: "warning", inspectionDate: "2023-05-10", kmr: 18200, notes: "Monitor closely" },
+                { position: "Middle Right Inner", tread: 28, status: "warning", inspectionDate: "2023-05-10", kmr: 18200, notes: "Normal wear" },
+                { position: "Rear Left Outer", tread: 15, status: "critical", inspectionDate: "2023-05-10", kmr: 18200, notes: "Needs immediate replacement" },
+                { position: "Rear Left Inner", tread: 19, status: "critical", inspectionDate: "2023-05-10", kmr: 18200, notes: "Needs replacement" },
+                { position: "Rear Right Outer", tread: 24, status: "warning", inspectionDate: "2023-05-10", kmr: 18200, notes: "Monitor closely" },
+                { position: "Rear Right Inner", tread: 26, status: "warning", inspectionDate: "2023-05-10", kmr: 18200, notes: "Monitor closely" }
+            ],
+            "T3": [
+                { position: "Front Left", tread: 68, status: "good", inspectionDate: "2023-05-18", kmr: 9800, notes: "Excellent condition" },
+                { position: "Front Right", tread: 65, status: "good", inspectionDate: "2023-05-18", kmr: 9800, notes: "Excellent condition" },
+                { position: "Middle Left Outer", tread: 70, status: "good", inspectionDate: "2023-05-18", kmr: 9800, notes: "Excellent condition" },
+                { position: "Middle Left Inner", tread: 72, status: "good", inspectionDate: "2023-05-18", kmr: 9800, notes: "Excellent condition" },
+                { position: "Middle Right Outer", tread: 68, status: "good", inspectionDate: "2023-05-18", kmr: 9800, notes: "Excellent condition" },
+                { position: "Middle Right Inner", tread: 65, status: "good", inspectionDate: "2023-05-18", kmr: 9800, notes: "Excellent condition" },
+                { position: "Rear Left Outer", tread: 60, status: "good", inspectionDate: "2023-05-18", kmr: 9800, notes: "Good condition" },
+                { position: "Rear Left Inner", tread: 62, status: "good", inspectionDate: "2023-05-18", kmr: 9800, notes: "Good condition" },
+                { position: "Rear Right Outer", tread: 64, status: "good", inspectionDate: "2023-05-18", kmr: 9800, notes: "Good condition" },
+                { position: "Rear Right Inner", tread: 66, status: "good", inspectionDate: "2023-05-18", kmr: 9800, notes: "Good condition" }
+            ],
+            "T4": [
+                { position: "Front Left", tread: 45, status: "monitor", inspectionDate: "2023-05-12", kmr: 15400, notes: "Normal wear" },
+                { position: "Front Right", tread: 42, status: "monitor", inspectionDate: "2023-05-12", kmr: 15400, notes: "Normal wear" },
+                { position: "Middle Left Outer", tread: 38, status: "warning", inspectionDate: "2023-05-12", kmr: 15400, notes: "Slight uneven wear" },
+                { position: "Middle Left Inner", tread: 50, status: "monitor", inspectionDate: "2023-05-12", kmr: 15400, notes: "Normal wear" },
+                { position: "Middle Right Outer", tread: 45, status: "monitor", inspectionDate: "2023-05-12", kmr: 15400, notes: "Normal wear" },
+                { position: "Middle Right Inner", tread: 48, status: "monitor", inspectionDate: "2023-05-12", kmr: 15400, notes: "Normal wear" },
+                { position: "Rear Left Outer", tread: 40, status: "monitor", inspectionDate: "2023-05-12", kmr: 15400, notes: "Normal wear" },
+                { position: "Rear Left Inner", tread: 42, status: "monitor", inspectionDate: "2023-05-12", kmr: 15400, notes: "Normal wear" },
+                { position: "Rear Right Outer", tread: 35, status: "warning", inspectionDate: "2023-05-12", kmr: 15400, notes: "Monitor closely" },
+                { position: "Rear Right Inner", tread: 45, status: "monitor", inspectionDate: "2023-05-12", kmr: 15400, notes: "Normal wear" }
+            ],
+            "T5": [
+                { position: "Front Left", tread: 25, status: "warning", inspectionDate: "2023-05-08", kmr: 20300, notes: "Monitor closely" },
+                { position: "Front Right", tread: 28, status: "warning", inspectionDate: "2023-05-08", kmr: 20300, notes: "Monitor closely" },
+                { position: "Middle Left Outer", tread: 30, status: "warning", inspectionDate: "2023-05-08", kmr: 20300, notes: "Normal wear" },
+                { position: "Middle Left Inner", tread: 32, status: "warning", inspectionDate: "2023-05-08", kmr: 20300, notes: "Normal wear" },
+                { position: "Middle Right Outer", tread: 22, status: "warning", inspectionDate: "2023-05-08", kmr: 20300, notes: "Monitor closely" },
+                { position: "Middle Right Inner", tread: 26, status: "warning", inspectionDate: "2023-05-08", kmr: 20300, notes: "Monitor closely" },
+                { position: "Rear Left Outer", tread: 28, status: "warning", inspectionDate: "2023-05-08", kmr: 20300, notes: "Normal wear" },
+                { position: "Rear Left Inner", tread: 30, status: "warning", inspectionDate: "2023-05-08", kmr: 20300, notes: "Normal wear" },
+                { position: "Rear Right Outer", tread: 25, status: "warning", inspectionDate: "2023-05-08", kmr: 20300, notes: "Monitor closely" },
+                { position: "Rear Right Inner", tread: 27, status: "warning", inspectionDate: "2023-05-08", kmr: 20300, notes: "Monitor closely" }
+            ],
+            "T6": [
+                { position: "Front Left", tread: 75, status: "good", inspectionDate: "2023-05-20", kmr: 7600, notes: "Excellent condition" },
+                { position: "Front Right", tread: 72, status: "good", inspectionDate: "2023-05-20", kmr: 7600, notes: "Excellent condition" },
+                { position: "Middle Left Outer", tread: 70, status: "good", inspectionDate: "2023-05-20", kmr: 7600, notes: "Excellent condition" },
+                { position: "Middle Left Inner", tread: 68, status: "good", inspectionDate: "2023-05-20", kmr: 7600, notes: "Excellent condition" },
+                { position: "Middle Right Outer", tread: 75, status: "good", inspectionDate: "2023-05-20", kmr: 7600, notes: "Excellent condition" },
+                { position: "Middle Right Inner", tread: 72, status: "good", inspectionDate: "2023-05-20", kmr: 7600, notes: "Excellent condition" },
+                { position: "Rear Left Outer", tread: 65, status: "good", inspectionDate: "2023-05-20", kmr: 7600, notes: "Good condition" },
+                { position: "Rear Left Inner", tread: 70, status: "good", inspectionDate: "2023-05-20", kmr: 7600, notes: "Excellent condition" },
+                { position: "Rear Right Outer", tread: 68, status: "good", inspectionDate: "2023-05-20", kmr: 7600, notes: "Good condition" },
+                { position: "Rear Right Inner", tread: 72, status: "good", inspectionDate: "2023-05-20", kmr: 7600, notes: "Excellent condition" }
+            ],
+            "T7": [
+                { position: "Front Left", tread: 58, status: "monitor", inspectionDate: "2023-05-14", kmr: 14200, notes: "Good condition" },
+                { position: "Front Right", tread: 55, status: "monitor", inspectionDate: "2023-05-14", kmr: 14200, notes: "Good condition" },
+                { position: "Middle Left Outer", tread: 52, status: "monitor", inspectionDate: "2023-05-14", kmr: 14200, notes: "Good condition" },
+                { position: "Middle Left Inner", tread: 56, status: "monitor", inspectionDate: "2023-05-14", kmr: 14200, notes: "Good condition" },
+                { position: "Middle Right Outer", tread: 50, status: "monitor", inspectionDate: "2023-05-14", kmr: 14200, notes: "Good condition" },
+                { position: "Middle Right Inner", tread: 58, status: "monitor", inspectionDate: "2023-05-14", kmr: 14200, notes: "Good condition" },
+                { position: "Rear Left Outer", tread: 55, status: "monitor", inspectionDate: "2023-05-14", kmr: 14200, notes: "Good condition" },
+                { position: "Rear Left Inner", tread: 52, status: "monitor", inspectionDate: "2023-05-14", kmr: 14200, notes: "Good condition" },
+                { position: "Rear Right Outer", tread: 50, status: "monitor", inspectionDate: "2023-05-14", kmr: 14200, notes: "Good condition" },
+                { position<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Truck Tire Inspection System</title>
+    <style>
+        :root {
+            --red: #ff6b6b;
+            --orange: #ffa502;
+            --yellow: #ffd32a;
+            --green: #51cf66;
+            --dark-blue: #2c3e50;
+            --light-gray: #f5f5f5;
+            --white: #ffffff;
+            --border-radius: 8px;
+            --box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--light-gray);
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+        
+        h1, h2, h3 {
+            color: var(--dark-blue);
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eee;
+        }
+        
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .tipper-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            box-shadow: var(--box-shadow);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .tipper-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .tipper-card.selected {
+            border: 3px solid var(--dark-blue);
+            background-color: #f0f8ff;
+        }
+        
+        .tipper-card h3 {
+            margin-top: 0;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.8rem;
+            margin-top: 5px;
+        }
+        
+        .red-bg {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+        
+        .orange-bg {
+            background-color: #fff3e0;
+            color: #e65100;
+        }
+        
+        .yellow-bg {
+            background-color: #fffde7;
+            color: #f9a825;
+        }
+        
+        .green-bg {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        .form-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            background: var(--white);
+        }
+        
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .form-group {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        
         input, select {
             width: 100%;
             padding: 10px;
