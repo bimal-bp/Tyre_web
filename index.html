@@ -251,7 +251,7 @@
             margin-bottom: 5px;
         }
 
-        .form-group input, .form-group textarea {
+        .form-group input, .form-group textarea, .form-group select {
             padding: 8px;
             border: 1px solid #ddd;
             border-radius: 4px;
@@ -259,7 +259,7 @@
         }
 
         .form-group input[type="number"] {
-            width: 100px;
+            width: 150px;
         }
 
         .form-group textarea {
@@ -269,8 +269,19 @@
 
         .tire-inputs {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 10px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .tire-input-group {
+            border: 1px solid #eee;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .tire-input-group h4 {
+            margin: 0 0 10px 0;
+            color: var(--dark-blue);
         }
 
         .form-actions {
@@ -334,15 +345,15 @@
                 <h3>New Inspection for <span id="inspection-tipper-name"></span></h3>
                 <form class="inspection-form" id="inspection-form">
                     <div class="form-group">
-                        <label for="kmr">KMR (Kilometers Run):</label>
-                        <input type="number" id="kmr" name="kmr" required min="0">
+                        <label for="current-kmr">Current KMR (Kilometers Run):</label>
+                        <input type="number" id="current-kmr" name="current-kmr" required min="0">
                     </div>
                     <div class="form-group">
                         <label for="inspection-date">Inspection Date:</label>
                         <input type="date" id="inspection-date" name="inspection-date" required>
                     </div>
                     <div class="form-group">
-                        <label>Tire Tread Depths (mm):</label>
+                        <label>Tire Details:</label>
                         <div class="tire-inputs" id="tire-inputs">
                             <!-- Tire inputs will be generated here -->
                         </div>
@@ -373,87 +384,135 @@
     </div>
 
     <script>
-        // Sample data for tippers with inspection notes (tread depths in mm, where 23 mm = 100%)
-        let tippers = {
-            "Tipper 52": {
-                kmr: 12500,
-                lastInspection: "2023-05-15",
-                inspectionNotes: "Minor sidewall damage on L2, recommend close monitoring. R4 shows uneven wear pattern.",
-                tyres: {
-                    L1: 10.98, R1: 8.34, L2: 3.91, R2: 3.89, L3: 5.16, R3: 4.85,
-                    L4: 21.67, R4: 6.05, L5: 21.17, R5: 6.17
-                },
-                photos: [
-                    "https://via.placeholder.com/300x200?text=Front+Left+Tire",
-                    "https://via.placeholder.com/300x200?text=Rear+Right+Tire"
-                ]
-            },
-            "Tipper 27": {
-                kmr: 18200,
-                lastInspection: "2023-05-10",
-                inspectionNotes: "L3 and R4 critically low, recommend immediate replacement. Alignment check needed.",
-                tyres: {
-                    L1: 12.96, R1: 17.35, L2: 8.80, R2: 6.19, L3: 2.78, R3: 8.35,
-                    L4: 2.63, R4: 2.12, L5: 5.09, R5: 9.74
-                },
-                photos: [
-                    "https://via.placeholder.com/300x200?text=Front+Right+Tire",
-                    "https://via.placeholder.com/300x200?text=Middle+Left+Tire"
-                ]
-            },
-            "Tipper 97": {
-                kmr: 9800,
-                lastInspection: "2023-05-18",
-                inspectionNotes: "All tires in acceptable condition. Regular maintenance schedule recommended.",
-                tyres: {
-                    L1: 18.35, R1: 17.97, L2: 6.21, R2: 5.40, L3: 7.26, R3: 5.93,
-                    L4: 8.45, R4: 9.56, L5: 10.12, R5: 9.59
-                },
-                photos: [
-                    "https://via.placeholder.com/300x200?text=Rear+Left+Tire",
-                    "https://via.placeholder.com/300x200?text=Middle+Right+Tire"
-                ]
-            },
-            "Tipper 26": {
-                kmr: 15400,
-                lastInspection: "2023-05-12",
-                inspectionNotes: "R21 showing signs of wear, recommend rotation. Overall good condition.",
-                tyres: {
-                    L1: 15.91, L21: 13.57, L22: 11.21, L31: 14.32, L32: 12.46,
-                    R1: 15.30, R21: 5.59, R22: 11.52, R31: 12.68, R32: 16.84
-                },
-                photos: [
-                    "https://via.placeholder.com/300x200?text=Front+Left+Tire",
-                    "https://via.placeholder.com/300x200?text=Rear+Right+Tire"
-                ]
-            },
-            "Tipper 80": {
-                kmr: 20300,
-                lastInspection: "2023-05-08",
-                inspectionNotes: "Multiple tires in warning zone, schedule replacement within next month.",
-                tyres: {
-                    L1: 7.63, L21: 7.85, L22: 10.72, L31: 5.57, L32: 6.00,
-                    R1: 10.25, R24: 7.10, R22: 8.01, R31: 8.20, R32: 5.84
-                },
-                photos: [
-                    "https://via.placeholder.com/300x200?text=Middle+Left+Tire",
-                    "https://via.placeholder.com/300x200?text=Front+Right+Tire"
-                ]
-            },
-            "Tipper 95": {
-                kmr: 7600,
-                lastInspection: "2023-05-20",
-                inspectionNotes: "L21 and L22 critically low, replace immediately. Others in good condition.",
-                tyres: {
-                    L1: 13.60, L21: 2.10, L22: 2.14, L31: 21.24, L32: 20.62,
-                    R1: 12.85, R21: 12.95, R22: 11.69, R31: 18.59, R32: 9.90
-                },
-                photos: [
-                    "https://via.placeholder.com/300x200?text=Rear+Left+Tire",
-                    "https://via.placeholder.com/300x200?text=Middle+Right+Tire"
-                ]
-            }
-        };
+        // Sample data for tippers with detailed tire information
+let tippers = {
+    "Tipper 52": {
+        currentKmr: 12500,
+        lastInspection: "2023-05-15",
+        inspectionNotes: "Minor sidewall damage on L2, recommend close monitoring. R4 shows uneven wear pattern.",
+        tyres: {
+            L1: { brand: "Apollo", subbrand: "Terra BT", fittingDate: "2023-01-10", fittingKmr: 0, currentTread: 10.98 },
+            R1: { brand: "Apollo", subbrand: "Terra BT", fittingDate: "2023-01-10", fittingKmr: 0, currentTread: 8.34 },
+            L2: { brand: "BKT", subbrand: "Inline", fittingDate: "2023-01-10", fittingKmr: 0, currentTread: 3.91 },
+            R2: { brand: "BKT", subbrand: "Inline", fittingDate: "2023-01-10", fittingKmr: 0, currentTread: 3.89 },
+            L3: { brand: "CEAT", subbrand: "Castus", fittingDate: "2023-01-10", fittingKmr: 0, currentTread: 5.16 },
+            R3: { brand: "CEAT", subbrand: "Castus", fittingDate: "2023-01-10", fittingKmr: 0, currentTread: 4.85 },
+            L4: { brand: "Apollo", subbrand: "Terra BT Pro", fittingDate: "2023-01-10", fittingKmr: 0, currentTread: 21.67 },
+            R4: { brand: "Apollo", subbrand: "Terra BT Pro", fittingDate: "2023-01-10", fittingKmr: 0, currentTread: 6.05 },
+            L5: { brand: "BKT", subbrand: "Inline Pro", fittingDate: "2023-01-10", fittingKmr: 0, currentTread: 21.17 },
+            R5: { brand: "BKT", subbrand: "Inline Pro", fittingDate: "2023-01-10", fittingKmr: 0, currentTread: 6.17 }
+        },
+        photos: [
+            "https://via.placeholder.com/300x200?text=Front+Left+Tire",
+            "https://via.placeholder.com/300x200?text=Rear+Right+Tire"
+        ]
+    },
+    "Tipper 27": {
+        currentKmr: 18200,
+        lastInspection: "2023-05-10",
+        inspectionNotes: "L3 and R4 critically low, recommend immediate replacement. Alignment check needed.",
+        tyres: {
+            L1: { brand: "Apollo", subbrand: "Terra BT", fittingDate: "2023-01-05", fittingKmr: 0, currentTread: 12.96 },
+            R1: { brand: "Apollo", subbrand: "Terra BT", fittingDate: "2023-01-05", fittingKmr: 0, currentTread: 17.35 },
+            L2: { brand: "BKT", subbrand: "Inline", fittingDate: "2023-01-05", fittingKmr: 0, currentTread: 8.80 },
+            R2: { brand: "BKT", subbrand: "Inline", fittingDate: "2023-01-05", fittingKmr: 0, currentTread: 6.19 },
+            L3: { brand: "CEAT", subbrand: "Castus", fittingDate: "2023-01-05", fittingKmr: 0, currentTread: 2.78 },
+            R3: { brand: "CEAT", subbrand: "Castus", fittingDate: "2023-01-05", fittingKmr: 0, currentTread: 8.35 },
+            L4: { brand: "Apollo", subbrand: "Terra BT Pro", fittingDate: "2023-01-05", fittingKmr: 0, currentTread: 2.63 },
+            R4: { brand: "Apollo", subbrand: "Terra BT Pro", fittingDate: "2023-01-05", fittingKmr: 0, currentTread: 2.12 },
+            L5: { brand: "BKT", subbrand: "Inline Pro", fittingDate: "2023-01-05", fittingKmr: 0, currentTread: 5.09 },
+            R5: { brand: "BKT", subbrand: "Inline Pro", fittingDate: "2023-01-05", fittingKmr: 0, currentTread: 9.74 }
+        },
+        photos: [
+            "https://via.placeholder.com/300x200?text=Front+Right+Tire",
+            "https://via.placeholder.com/300x200?text=Middle+Left+Tire"
+        ]
+    },
+    "Tipper 97": {
+        currentKmr: 9800,
+        lastInspection: "2023-05-18",
+        inspectionNotes: "All tires in acceptable condition. Regular maintenance schedule recommended.",
+        tyres: {
+            L1: { brand: "Apollo", subbrand: "Terra BT", fittingDate: "2023-02-01", fittingKmr: 0, currentTread: 18.35 },
+            R1: { brand: "Apollo", subbrand: "Terra BT", fittingDate: "2023-02-01", fittingKmr: 0, currentTread: 17.97 },
+            L2: { brand: "BKT", subbrand: "Inline", fittingDate: "2023-02-01", fittingKmr: 0, currentTread: 6.21 },
+            R2: { brand: "BKT", subbrand: "Inline", fittingDate: "2023-02-01", fittingKmr: 0, currentTread: 5.40 },
+            L3: { brand: "CEAT", subbrand: "Castus", fittingDate: "2023-02-01", fittingKmr: 0, currentTread: 7.26 },
+            R3: { brand: "CEAT", subbrand: "Castus", fittingDate: "2023-02-01", fittingKmr: 0, currentTread: 5.93 },
+            L4: { brand: "Apollo", subbrand: "Terra BT Pro", fittingDate: "2023-02-01", fittingKmr: 0, currentTread: 8.45 },
+            R4: { brand: "Apollo", subbrand: "Terra BT Pro", fittingDate: "2023-02-01", fittingKmr: 0, currentTread: 9.56 },
+            L5: { brand: "BKT", subbrand: "Inline Pro", fittingDate: "2023-02-01", fittingKmr: 0, currentTread: 10.12 },
+            R5: { brand: "BKT", subbrand: "Inline Pro", fittingDate: "2023-02-01", fittingKmr: 0, currentTread: 9.59 }
+        },
+        photos: [
+            "https://via.placeholder.com/300x200?text=Rear+Left+Tire",
+            "https://via.placeholder.com/300x200?text=Middle+Right+Tire"
+        ]
+    },
+    "Tipper 26": {
+        currentKmr: 15400,
+        lastInspection: "2023-05-12",
+        inspectionNotes: "R21 showing signs of wear, recommend rotation. Overall good condition.",
+        tyres: {
+            L1: { brand: "Apollo", subbrand: "Terra BT", fittingDate: "2023-01-15", fittingKmr: 0, currentTread: 15.91 },
+            L21: { brand: "BKT", subbrand: "Inline", fittingDate: "2023-01-15", fittingKmr: 0, currentTread: 13.57 },
+            L22: { brand: "CEAT", subbrand: "Castus", fittingDate: "2023-01-15", fittingKmr: 0, currentTread: 11.21 },
+            L31: { brand: "Apollo", subbrand: "Terra BT Pro", fittingDate: "2023-01-15", fittingKmr: 0, currentTread: 14.32 },
+            L32: { brand: "BKT", subbrand: "Inline Pro", fittingDate: "2023-01-15", fittingKmr: 0, currentTread: 12.46 },
+            R1: { brand: "Apollo", subbrand: "Terra BT", fittingDate: "2023-01-15", fittingKmr: 0, currentTread: 15.30 },
+            R21: { brand: "BKT", subbrand: "Inline", fittingDate: "2023-01-15", fittingKmr: 0, currentTread: 5.59 },
+            R22: { brand: "CEAT", subbrand: "Castus", fittingDate: "2023-01-15", fittingKmr: 0, currentTread: 11.52 },
+            R31: { brand: "Apollo", subbrand: "Terra BT Pro", fittingDate: "2023-01-15", fittingKmr: 0, currentTread: 12.68 },
+            R32: { brand: "BKT", subbrand: "Inline Pro", fittingDate: "2023-01-15", fittingKmr: 0, currentTread: 16.84 }
+        },
+        photos: [
+            "https://via.placeholder.com/300x200?text=Front+Left+Tire",
+            "https://via.placeholder.com/300x200?text=Rear+Right+Tire"
+        ]
+    },
+    "Tipper 80": {
+        currentKmr: 20300,
+        lastInspection: "2023-05-08",
+        inspectionNotes: "Multiple tires in warning zone, schedule replacement within next month.",
+        tyres: {
+            L1: { brand: "Apollo", subbrand: "Terra BT", fittingDate: "2023-01-20", fittingKmr: 0, currentTread: 7.63 },
+            L21: { brand: "BKT", subbrand: "Inline", fittingDate: "2023-01-20", fittingKmr: 0, currentTread: 7.85 },
+            L22: { brand: "CEAT", subbrand: "Castus", fittingDate: "2023-01-20", fittingKmr: 0, currentTread: 10.72 },
+            L31: { brand: "Apollo", subbrand: "Terra BT Pro", fittingDate: "2023-01-20", fittingKmr: 0, currentTread: 5.57 },
+            L32: { brand: "BKT", subbrand: "Inline Pro", fittingDate: "2023-01-20", fittingKmr: 0, currentTread: 6.00 },
+            R1: { brand: "Apollo", subbrand: "Terra BT", fittingDate: "2023-01-20", fittingKmr: 0, currentTread: 10.25 },
+            R24: { brand: "BKT", subbrand: "Inline", fittingDate: "2023-01-20", fittingKmr: 0, currentTread: 7.10 },
+            R22: { brand: "CEAT", subbrand: "Castus", fittingDate: "2023-01-20", fittingKmr: 0, currentTread: 8.01 },
+            R31: { brand: "Apollo", subbrand: "Terra BT Pro", fittingDate: "2023-01-20", fittingKmr: 0, currentTread: 8.20 },
+            R32: { brand: "BKT", subbrand: "Inline Pro", fittingDate: "2023-01-20", fittingKmr: 0, currentTread: 5.84 }
+        },
+        photos: [
+            "https://via.placeholder.com/300x200?text=Middle+Left+Tire",
+            "https://via.placeholder.com/300x200?text=Front+Right+Tire"
+        ]
+    },
+    "Tipper 95": {
+        currentKmr: 7600,
+        lastInspection: "2023-05-20",
+        inspectionNotes: "L21 and L22 critically low, replace immediately. Others in good condition.",
+        tyres: {
+            L1: { brand: "Apollo", subbrand: "Terra BT", fittingDate: "2023-02-10", fittingKmr: 0, currentTread: 13.60 },
+            L21: { brand: "BKT", subbrand: "Inline", fittingDate: "2023-02-10", fittingKmr: 0, currentTread: 2.10 },
+            L22: { brand: "CEAT", subbrand: "Castus", fittingDate: "2023-02-10", fittingKmr: 0, currentTread: 2.14 },
+            L31: { brand: "Apollo", subbrand: "Terra BT Pro", fittingDate: "2023-02-10", fittingKmr: 0, currentTread: 21.24 },
+            L32: { brand: "BKT", subbrand: "Inline Pro", fittingDate: "2023-02-10", fittingKmr: 0, currentTread: 20.62 },
+            R1: { brand: "Apollo", subbrand: "Terra BT", fittingDate: "2023-02-10", fittingKmr: 0, currentTread: 12.85 },
+            R21: { brand: "BKT", subbrand: "Inline", fittingDate: "2023-02-10", fittingKmr: 0, currentTread: 12.95 },
+            R22: { brand: "CEAT", subbrand: "Castus", fittingDate: "2023-02-10", fittingKmr: 0, currentTread: 11.69 },
+            R31: { brand: "Apollo", subbrand: "Terra BT Pro", fittingDate: "2023-02-10", fittingKmr: 0, currentTread: 18.59 },
+            R32: { brand: "BKT", subbrand: "Inline Pro", fittingDate: "2023-02-10", fittingKmr: 0, currentTread: 9.90 }
+        },
+        photos: [
+            "https://via.placeholder.com/300x200?text=Rear+Left+Tire",
+            "https://via.placeholder.com/300x200?text=Middle+Right+Tire"
+        ]
+    }
+};
 
         // Load tippers from localStorage if available
         const storedTippers = localStorage.getItem('tippers');
@@ -479,7 +538,7 @@
         // Function to calculate average tread for a tipper
         function calculateAverageTread(tipper) {
             const tires = Object.values(tipper.tyres);
-            const sum = tires.reduce((acc, tread) => acc + tread, 0);
+            const sum = tires.reduce((acc, tire) => acc + tire.currentTread, 0);
             return sum / tires.length;
         }
 
@@ -487,8 +546,8 @@
         function calculateFleetTireStatus() {
             const counts = { good: 0, monitor: 0, warning: 0, critical: 0 };
             Object.values(tippers).forEach(tipper => {
-                Object.values(tipper.tyres).forEach(tread => {
-                    const tireStatus = getTireStatus(tread).status;
+                Object.values(tipper.tyres).forEach(tire => {
+                    const tireStatus = getTireStatus(tire.currentTread).status;
                     counts[tireStatus]++;
                 });
             });
@@ -551,15 +610,15 @@
             
             // Count tires in each status
             const counts = { critical: 0, warning: 0, monitor: 0, good: 0 };
-            Object.values(tipper.tyres).forEach(tread => {
-                const tireStatus = getTireStatus(tread).status;
+            Object.values(tipper.tyres).forEach(tire => {
+                const tireStatus = getTireStatus(tire.currentTread).status;
                 counts[tireStatus]++;
             });
             
             // Update stats summary
             statsContainer.innerHTML = `
                 <div>
-                    <strong>KMR:</strong> ${tipper.kmr.toLocaleString()} | 
+                    <strong>Current KMR:</strong> ${tipper.currentKmr.toLocaleString()} | 
                     <strong>Last Inspection:</strong> ${tipper.lastInspection} | 
                     <strong>Avg Tread:</strong> ${avgTread.toFixed(2)} mm
                 </div>
@@ -577,14 +636,21 @@
             // Update tire details list
             detailsContainer.innerHTML = '';
             Object.keys(tipper.tyres).forEach(position => {
-                const tread = tipper.tyres[position];
-                const tireStatus = getTireStatus(tread);
+                const tire = tipper.tyres[position];
+                const kmrRun = tipper.currentKmr - tire.fittingKmr;
+                const tireStatus = getTireStatus(tire.currentTread);
                 
                 const row = document.createElement('div');
                 row.className = 'tire-detail-row';
                 row.innerHTML = `
                     <div class="tire-position">${position}</div>
-                    <div class="tire-value">${tread.toFixed(2)} mm</div>
+                    <div class="tire-value">
+                        Brand: ${tire.brand}, Subbrand: ${tire.subbrand}, 
+                        Fitting Date: ${tire.fittingDate}, 
+                        Fitting KMR: ${tire.fittingKmr.toLocaleString()}, 
+                        KMR Run: ${kmrRun.toLocaleString()}, 
+                        Tread: ${tire.currentTread.toFixed(2)} mm
+                    </div>
                     <div><span class="status-indicator ${tireStatus.color}">${tireStatus.status.toUpperCase()}</span></div>
                 `;
                 detailsContainer.appendChild(row);
@@ -615,22 +681,46 @@
             overview.classList.add('hidden');
             details.classList.add('hidden');
             formContainer.classList.remove('hidden');
-            inspectionTipperName.textContent =-tippers[tipperName];
+            inspectionTipperName.textContent = tipperName;
             
-            // Generate tire tread input fields based on tipper's tire positions
+            // Generate tire input fields based on tipper's tire positions
             tireInputs.innerHTML = '';
             Object.keys(tippers[tipperName].tyres).forEach(position => {
+                const tire = tippers[tipperName].tyres[position];
                 const div = document.createElement('div');
-                div.className = 'form-group';
+                div.className = 'tire-input-group';
                 div.innerHTML = `
-                    <label for="tire-${position}">${position} (mm):</label>
-                    <input type="number" id="tire-${position}" name="tire-${position}" step="0.01" min="0" max="23" required>
+                    <h4>Tire ${position}</h4>
+                    <div class="form-group">
+                        <label for="tire-${position}-brand">Brand:</label>
+                        <select id="tire-${position}-brand" name="tire-${position}-brand" required>
+                            <option value="Michelin" ${tire.brand === 'Michelin' ? 'selected' : ''}>Michelin</option>
+                            <option value="Bridgestone" ${tire.brand === 'Bridgestone' ? 'selected' : ''}>Bridgestone</option>
+                            <option value="Goodyear" ${tire.brand === 'Goodyear' ? 'selected' : ''}>Goodyear</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="tire-${position}-subbrand">Subbrand:</label>
+                        <input type="text" id="tire-${position}-subbrand" name="tire-${position}-subbrand" value="${tire.subbrand}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="tire-${position}-fitting-date">Fitting Date:</label>
+                        <input type="date" id="tire-${position}-fitting-date" name="tire-${position}-fitting-date" value="${tire.fittingDate}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="tire-${position}-fitting-kmr">Fitting KMR:</label>
+                        <input type="number" id="tire-${position}-fitting-kmr" name="tire-${position}-fitting-kmr" value="${tire.fittingKmr}" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="tire-${position}-current-tread">Current Tread (mm):</label>
+                        <input type="number" id="tire-${position}-current-tread" name="tire-${position}-current-tread" value="${tire.currentTread}" step="0.01" min="0" max="23" required>
+                    </div>
                 `;
                 tireInputs.appendChild(div);
             });
             
             // Set default values
-            document.getElementById('kmr').value = tippers[tipperName].kmr;
+            document.getElementById('current-kmr').value = tippers[tipperName].currentKmr;
             document.getElementById('inspection-date').value = new Date().toISOString().split('T')[0];
             document.getElementById('inspection-notes-input').value = '';
             document.getElementById('tire-photos-input').value = '';
@@ -641,9 +731,20 @@
                 
                 const newTyres = {};
                 Object.keys(tippers[tipperName].tyres).forEach(position => {
-                    const value = parseFloat(document.getElementById(`tire-${position}`).value);
-                    if (!isNaN(value)) {
-                        newTyres[position] = value;
+                    const brand = document.getElementById(`tire-${position}-brand`).value;
+                    const subbrand = document.getElementById(`tire-${position}-subbrand`).value;
+                    const fittingDate = document.getElementById(`tire-${position}-fitting-date`).value;
+                    const fittingKmr = parseInt(document.getElementById(`tire-${position}-fitting-kmr`).value);
+                    const currentTread = parseFloat(document.getElementById(`tire-${position}-current-tread`).value);
+                    
+                    if (!isNaN(currentTread) && !isNaN(fittingKmr)) {
+                        newTyres[position] = {
+                            brand,
+                            subbrand,
+                            fittingDate,
+                            fittingKmr,
+                            currentTread
+                        };
                     }
                 });
                 
@@ -654,7 +755,7 @@
                 }
                 
                 tippers[tipperName] = {
-                    kmr: parseInt(document.getElementById('kmr').value),
+                    currentKmr: parseInt(document.getElementById('current-kmr').value),
                     lastInspection: document.getElementById('inspection-date').value,
                     inspectionNotes: document.getElementById('inspection-notes-input').value,
                     tyres: newTyres,
@@ -665,7 +766,7 @@
                 localStorage.setItem('tippers', JSON.stringify(tippers));
                 
                 // Update inventory
-                inventory.tiresUsedThisMonth += Object.values(newTyres).filter(tread => tread < 4.6).length;
+                inventory.tiresUsedThisMonth += Object.values(newTyres).filter(tire => tire.currentTread < 4.6).length;
                 
                 // Refresh dashboard
                 generateSummaryStats();
