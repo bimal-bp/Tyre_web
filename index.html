@@ -90,6 +90,9 @@
             box-shadow: var(--box-shadow);
             cursor: pointer;
             transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         
         .tipper-card:hover {
@@ -100,6 +103,7 @@
             margin-top: 0;
             border-bottom: 1px solid #eee;
             padding-bottom: 10px;
+            text-align: center;
         }
         
         .status-indicator {
@@ -121,6 +125,7 @@
             flex-wrap: wrap;
             gap: 10px;
             margin-top: 10px;
+            justify-content: center;
         }
         
         .tire-stat {
@@ -144,7 +149,7 @@
             font-size: 14px;
             font-weight: 600;
             transition: background-color 0.3s;
-            margin-top: 10px;
+            margin: 5px;
         }
         
         .btn:hover {
@@ -362,7 +367,7 @@
 
         // Inventory and usage data
         const inventory = {
-            tiresInStock: 50,
+            tiresInStock: 5,
             tiresOrderedThisMonth: 20,
             tiresUsedThisMonth: 15
         };
@@ -415,35 +420,14 @@
             container.innerHTML = '';
             
             Object.keys(tippers).forEach(tipperName => {
-                const tipper = tippers[tipperName];
-                const avgTread = calculateAverageTread(tipper);
-                const status = getTireStatus(avgTread);
-                
-                // Count tires in each status
-                const counts = { critical: 0, warning: 0, monitor: 0, good: 0 };
-                Object.values(tipper.tyres).forEach(tread => {
-                    const tireStatus = getTireStatus(tread).status;
-                    counts[tireStatus]++;
-                });
-                
                 const card = document.createElement('div');
                 card.className = 'tipper-card';
-                card.onclick = () => showTipperDetails(tipperName);
                 card.innerHTML = `
                     <h3>${tipperName}</h3>
-                    <p>KMR: ${tipper.kmr.toLocaleString()}</p>
-                    <p>Avg Tread: ${avgTread.toFixed(2)}%</p>
-                    <p>Last Inspection: ${tipper.lastInspection}</p>
-                    <p class="inspection-notes">${tipper.inspectionNotes}</p>
-                    <div class="status-indicator ${status.color}">${status.status.toUpperCase()}</div>
-                    <div class="tire-stats">
-                        <span class="tire-stat green">${counts.good} Good</span>
-                        <span class="tire-stat yellow">${counts.monitor} Monitor</span>
-                        <span class="tire-stat orange">${counts.warning} Warning</span>
-                        <span class="tire-stat red">${counts.critical} Critical</span>
+                    <div>
+                        <button class="btn" onclick="showTipperDetails('${tipperName}')">View Details</button>
+                        <button class="btn" onclick="window.location.href='inspection.html?tipper=${tipperName}'">New Inspection</button>
                     </div>
-                    <button class="btn" onclick="event.stopPropagation(); showTipperDetails('${tipperName}')">View Details</button>
-                    <button class="btn" onclick="event.stopPropagation(); window.location.href='inspection.html?tipper=${tipperName}'">New Inspection</button>
                 `;
                 container.appendChild(card);
             });
@@ -486,6 +470,9 @@
                     <span class="tire-stat yellow">${counts.monitor} Monitor</span>
                     <span class="tire-stat orange">${counts.warning} Warning</span>
                     <span class="tire-stat red">${counts.critical} Critical</span>
+                </div>
+                <div style="margin-top: 10px;">
+                    <span class="status-indicator ${status.color}">${status.status.toUpperCase()}</span>
                 </div>
             `;
             
