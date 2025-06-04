@@ -223,12 +223,69 @@
             background-color: #f9f9f9;
             border-radius: 4px;
         }
-        
+
+        .inspection-form-container {
+            margin-top: 20px;
+            padding: 20px;
+            background: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .inspection-form-container h3 {
+            margin-top: 0;
+        }
+
+        .inspection-form {
+            display: grid;
+            gap: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .form-group input, .form-group textarea {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .form-group input[type="number"] {
+            width: 100px;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .tire-inputs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+        }
+
         @media (max-width: 768px) {
             .dashboard {
                 grid-template-columns: 1fr;
             }
             .summary-stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .tire-inputs {
                 grid-template-columns: 1fr;
             }
         }
@@ -270,6 +327,39 @@
                 <div class="photo-preview-container" id="tire-photos-container">
                     <!-- Tire photos will be shown here -->
                 </div>
+            </div>
+
+            <div class="inspection-form-container hidden" id="inspection-form-container">
+                <button class="btn" onclick="showTipperOverview()">← Back to Fleet</button>
+                <h3>New Inspection for <span id="inspection-tipper-name"></span></h3>
+                <form class="inspection-form" id="inspection-form">
+                    <div class="form-group">
+                        <label for="kmr">KMR (Kilometers Run):</label>
+                        <input type="number" id="kmr" name="kmr" required min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="inspection-date">Inspection Date:</label>
+                        <input type="date" id="inspection-date" name="inspection-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Tire Tread Depths (mm):</label>
+                        <div class="tire-inputs" id="tire-inputs">
+                            <!-- Tire inputs will be generated here -->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inspection-notes-input">Inspection Notes:</label>
+                        <textarea id="inspection-notes-input" name="inspection-notes" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="tire-photos-input">Upload Tire Photos:</label>
+                        <input type="file" id="tire-photos-input" name="tire-photos" multiple accept="image/*">
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn">Submit Inspection</button>
+                        <button type="button" class="btn" onclick="showTipperOverview()">Cancel</button>
+                    </div>
+                </form>
             </div>
             
             <div class="status-guide">
@@ -432,7 +522,7 @@
                     <h3>${tipperName}</h3>
                     <div>
                         <button class="btn" onclick="showTipperDetails('${tipperName}')">View Details</button>
-                        <button class="btn" onclick="window.location.href='inspection.html?tipper=${tipperName}'">New Inspection</button>
+                        <button class="btn" onclick="showInspectionForm('${tipperName}')">New Inspection</button>
                     </div>
                 `;
                 container.appendChild(card);
@@ -443,6 +533,7 @@
         function showTipperDetails(tipperName) {
             const overview = document.getElementById('tipper-cards-container');
             const details = document.getElementById('tipper-details');
+            const formContainer = document.getElementById('inspection-form-container');
             const name = document.getElementById('selected-tipper-name');
             const statsContainer = document.getElementById('tire-stats-summary');
             const detailsContainer = document.getElementById('tire-details-list');
@@ -451,6 +542,7 @@
             
             overview.classList.add('hidden');
             details.classList.remove('hidden');
+            formContainer.classList.add('hidden');
             name.textContent = tipperName + ' Tire Details';
             
             const tipper = tippers[tipperName];
@@ -511,12 +603,85 @@
             });
         }
 
+        // Function to show inspection form
+        function showInspectionForm(tipperName) {
+            const overview = document.getElementById('tipper-cards-container');
+            const details = document.getElementById('tipper-details');
+            const formContainer = document.getElementById('inspection-form-container');
+            const form = document.getElementById('inspection-form');
+            const tireInputs = document.getElementById('tire-inputs');
+            const inspectionTipperName = document.getElementById('inspection-tipper-name');
+            
+            overview.classList.add('hidden');
+            details.classList.add('hidden');
+            formContainer.classList.remove('hidden');
+            inspectionTipperName.textContent =-tippers[tipperName];
+            
+            // Generate tire tread input fields based on tipper's tire positions
+            tireInputs.innerHTML = '';
+            Object.keys(tippers[tipperName].tyres).forEach(position => {
+                const div = document.createElement('div');
+                div.className = 'form-group';
+                div.innerHTML = `
+                    <label for="tire-${position}">${position} (mm):</label>
+                    <input type="number" id="tire-${position}" name="tire-${position}" step="0.01" min="0" max="23" required>
+                `;
+                tireInputs.appendChild(div);
+            });
+            
+            // Set default values
+            document.getElementById('kmr').value = tippers[tipperName].kmr;
+            document.getElementById('inspection-date').value = new Date().toISOString().split('T')[0];
+            document.getElementById('inspection-notes-input').value = '';
+            document.getElementById('tire-photos-input').value = '';
+            
+            // Handle form submission
+            form.onsubmit = function(event) {
+                event.preventDefault();
+                
+                const newTyres = {};
+                Object.keys(tippers[tipperName].tyres).forEach(position => {
+                    const value = parseFloat(document.getElementById(`tire-${position}`).value);
+                    if (!isNaN(value)) {
+                        newTyres[position] = value;
+                    }
+                });
+                
+                const photos = document.getElementById('tire-photos-input').files;
+                const photoUrls = [];
+                for (let i = 0; i < photos.length; i++) {
+                    photoUrls.push(URL.createObjectURL(photos[i]));
+                }
+                
+                tippers[tipperName] = {
+                    kmr: parseInt(document.getElementById('kmr').value),
+                    lastInspection: document.getElementById('inspection-date').value,
+                    inspectionNotes: document.getElementById('inspection-notes-input').value,
+                    tyres: newTyres,
+                    photos: photoUrls
+                };
+                
+                // Save to localStorage
+                localStorage.setItem('tippers', JSON.stringify(tippers));
+                
+                // Update inventory
+                inventory.tiresUsedThisMonth += Object.values(newTyres).filter(tread => tread < 4.6).length;
+                
+                // Refresh dashboard
+                generateSummaryStats();
+                generateTipperCards();
+                showTipperOverview();
+            };
+        }
+
         // Function to show tipper overview
         function showTipperOverview() {
             const overview = document.getElementById('tipper-cards-container');
             const details = document.getElementById('tipper-details');
+            const formContainer = document.getElementById('inspection-form-container');
             overview.classList.remove('hidden');
             details.classList.add('hidden');
+            formContainer.classList.add('hidden');
         }
 
         // Initialize the dashboard when page loads
