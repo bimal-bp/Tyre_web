@@ -6,13 +6,9 @@
     <title>Truck Tire Inspection System</title>
     <style>
         :root {
-            --red: #ff6b6b;
-            --orange: #ffa502;
-            --yellow: #ffd32a;
-            --green: #51cf66;
-            --dark-blue: #2c3e50;
-            --light-gray: #f5f5f5;
             --white: #ffffff;
+            --light-gray: #f5f5f5;
+            --dark-blue: #2c3e50;
             --border-radius: 8px;
             --box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
@@ -79,26 +75,7 @@
             font-weight: bold;
             font-size: 0.8rem;
             margin-top: 5px;
-        }
-        
-        .red-bg {
-            background-color: var(--red);
-            color: white;
-        }
-        
-        .orange-bg {
-            background-color: var(--orange);
-            color: white;
-        }
-        
-        .yellow-bg {
-            background-color: var(--yellow);
-            color: black;
-        }
-        
-        .green-bg {
-            background-color: var(--green);
-            color: white;
+            background-color: #ddd;
         }
         
         .tire-stats {
@@ -112,6 +89,7 @@
             padding: 5px 10px;
             border-radius: 4px;
             font-size: 0.8rem;
+            background-color: #ddd;
         }
         
         .btn {
@@ -192,8 +170,70 @@
             margin-bottom: 5px;
         }
         
+        .inspection-notes {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+        }
+        
+        .inspection-form-container {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius);
+        }
+        
+        .inspection-form-container label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .inspection-form-container input,
+        .inspection-form-container textarea,
+        .inspection-form-container select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .inspection-form-container textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        
+        .tire-inputs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .tire-inputs label {
+            font-size: 12px;
+        }
+        
+        .tire-inputs input {
+            width: 100%;
+        }
+        
+        .error-message {
+            color: red;
+            font-size: 12px;
+            margin-top: -10px;
+            margin-bottom: 10px;
+            display: none;
+        }
+        
         @media (max-width: 768px) {
             .dashboard {
+                grid-template-columns: 1fr;
+            }
+            .tire-inputs {
                 grid-template-columns: 1fr;
             }
         }
@@ -221,28 +261,63 @@
                     <!-- Tire details will be generated here -->
                 </div>
                 
+                <div class="inspection-notes" id="inspection-notes">
+                    <!-- Inspection notes will be shown here -->
+                </div>
+                
                 <h3>Tire Photos</h3>
                 <div class="photo-preview-container" id="tire-photos-container">
                     <!-- Tire photos will be shown here -->
                 </div>
             </div>
             
+            <div class="inspection-form-container hidden" id="inspection-form">
+                <h2>New Tire Inspection</h2>
+                <form id="new-inspection-form">
+                    <label for="tipper-select">Select Tipper</label>
+                    <select id="tipper-select" name="tipper" required>
+                        <option value="">Select a tipper</option>
+                        <!-- Options will be populated by JavaScript -->
+                    </select>
+                    <div id="tipper-error" class="error-message">Please select a tipper</div>
+                    
+                    <label for="kmr">KMR (Kilometers Run)</label>
+                    <input type="number" id="kmr" name="kmr" min="0" required>
+                    <div id="kmr-error" class="error-message">Please enter a valid KMR</div>
+                    
+                    <label>Tire Tread Measurements (%)</label>
+                    <div class="tire-inputs" id="tire-inputs">
+                        <!-- Tire inputs will be generated here -->
+                    </div>
+                    
+                    <label for="inspection-notes-input">Inspection Notes</label>
+                    <textarea id="inspection-notes-input" name="notes" placeholder="Enter inspection notes..."></textarea>
+                    
+                    <label for="photos">Upload Tire Photos</label>
+                    <input type="file" id="photos" name="photos" accept="image/*" multiple>
+                    
+                    <button type="submit" class="btn">Submit Inspection</button>
+                </form>
+                <button class="btn" onclick="showTipperOverview()">Cancel</button>
+            </div>
+            
             <div class="status-guide">
                 <h3>Tire Status Guide</h3>
-                <div class="status-guide-item"><span class="status-indicator green-bg">Good</span> > 60% tread</div>
-                <div class="status-guide-item"><span class="status-indicator yellow-bg">Monitor</span> 40-60% tread</div>
-                <div class="status-guide-item"><span class="status-indicator orange-bg">Warning</span> 20-40% tread</div>
-                <div class="status-guide-item"><span class="status-indicator red-bg">Critical</span> < 20% tread</div>
+                <div class="status-guide-item"><span class="status-indicator">Good</span> > 60% tread</div>
+                <div class="status-guide-item"><span class="status-indicator">Monitor</span> 40-60% tread</div>
+                <div class="status-guide-item"><span class="status-indicator">Warning</span> 20-40% tread</div>
+                <div class="status-guide-item"><span class="status-indicator">Critical</span> < 20% tread</div>
             </div>
         </div>
     </div>
 
     <script>
-        // Sample data for tippers
+        // Sample data for tippers with inspection notes
         const tippers = {
             "Tipper 52": {
                 kmr: 12500,
                 lastInspection: "2023-05-15",
+                inspectionNotes: "Minor sidewall damage on L2, recommend close monitoring. R4 shows uneven wear pattern.",
                 tyres: {
                     L1: 47.74, R1: 36.26, L2: 17.00, R2: 16.91, L3: 22.43, R3: 21.09,
                     L4: 94.22, R4: 26.30, L5: 92.04, R5: 26.83
@@ -255,6 +330,7 @@
             "Tipper 27": {
                 kmr: 18200,
                 lastInspection: "2023-05-10",
+                inspectionNotes: "L3 and R4 critically low, recommend immediate replacement. Alignment check needed.",
                 tyres: {
                     L1: 56.35, R1: 75.43, L2: 38.26, R2: 26.91, L3: 12.09, R3: 36.30,
                     L4: 11.43, R4: 9.22, L5: 22.13, R5: 42.35
@@ -267,6 +343,7 @@
             "Tipper 97": {
                 kmr: 9800,
                 lastInspection: "2023-05-18",
+                inspectionNotes: "All tires in acceptable condition. Regular maintenance schedule recommended.",
                 tyres: {
                     L1: 79.78, R1: 78.13, L2: 27.00, R2: 23.48, L3: 31.57, R3: 25.78,
                     L4: 36.74, R4: 41.57, L5: 44.00, R5: 41.70
@@ -279,6 +356,7 @@
             "Tipper 26": {
                 kmr: 15400,
                 lastInspection: "2023-05-12",
+                inspectionNotes: "R21 showing signs of wear, recommend rotation. Overall good condition.",
                 tyres: {
                     L1: 69.17, L21: 59.00, L22: 48.74, L31: 62.26, L32: 54.17,
                     R1: 66.52, R21: 24.30, R22: 50.09, R31: 55.13, R32: 73.22
@@ -291,6 +369,7 @@
             "Tipper 80": {
                 kmr: 20300,
                 lastInspection: "2023-05-08",
+                inspectionNotes: "Multiple tires in warning zone, schedule replacement within next month.",
                 tyres: {
                     L1: 33.17, L21: 34.13, L22: 46.61, L31: 24.22, L32: 26.09,
                     R1: 44.57, R24: 30.87, R22: 34.83, R31: 35.65, R32: 25.39
@@ -303,6 +382,7 @@
             "Tipper 95": {
                 kmr: 7600,
                 lastInspection: "2023-05-20",
+                inspectionNotes: "L21 and L22 critically low, replace immediately. Others in good condition.",
                 tyres: {
                     L1: 59.13, L21: 9.13, L22: 9.30, L31: 92.35, L32: 89.65,
                     R1: 55.87, R21: 56.30, R22: 50.82, R31: 80.83, R32: 43.04
@@ -316,10 +396,10 @@
 
         // Function to get tire status based on tread percentage
         function getTireStatus(tread) {
-            if (tread < 20) return { status: "critical", color: "red" };
-            if (tread < 40) return { status: "warning", color: "orange" };
-            if (tread < 60) return { status: "monitor", color: "yellow" };
-            return { status: "good", color: "green" };
+            if (tread < 20) return { status: "critical" };
+            if (tread < 40) return { status: "warning" };
+            if (tread < 60) return { status: "monitor" };
+            return { status: "good" };
         }
 
         // Function to calculate average tread for a tipper
@@ -354,14 +434,16 @@
                     <p>KMR: ${tipper.kmr.toLocaleString()}</p>
                     <p>Avg Tread: ${avgTread.toFixed(2)}%</p>
                     <p>Last Inspection: ${tipper.lastInspection}</p>
-                    <div class="status-indicator ${status.color}-bg">${status.status.toUpperCase()}</div>
+                    <p class="inspection-notes">${tipper.inspectionNotes}</p>
+                    <div class="status-indicator">${status.status.toUpperCase()}</div>
                     <div class="tire-stats">
-                        <span class="tire-stat green-bg">${counts.good} Good</span>
-                        <span class="tire-stat yellow-bg">${counts.monitor} Monitor</span>
-                        <span class="tire-stat orange-bg">${counts.warning} Warning</span>
-                        <span class="tire-stat red-bg">${counts.critical} Critical</span>
+                        <span class="tire-stat">${counts.good} Good</span>
+                        <span class="tire-stat">${counts.monitor} Monitor</span>
+                        <span class="tire-stat">${counts.warning} Warning</span>
+                        <span class="tire-stat">${counts.critical} Critical</span>
                     </div>
                     <button class="btn" onclick="event.stopPropagation(); showTipperDetails('${tipperName}')">View Details</button>
+                    <button class="btn" onclick="event.stopPropagation(); showInspectionForm('${tipperName}')">New Inspection</button>
                 `;
                 container.appendChild(card);
             });
@@ -371,13 +453,16 @@
         function showTipperDetails(tipperName) {
             const overview = document.getElementById('tipper-cards-container');
             const details = document.getElementById('tipper-details');
+            const form = document.getElementById('inspection-form');
             const name = document.getElementById('selected-tipper-name');
             const statsContainer = document.getElementById('tire-stats-summary');
             const detailsContainer = document.getElementById('tire-details-list');
             const photosContainer = document.getElementById('tire-photos-container');
+            const notesContainer = document.getElementById('inspection-notes');
             
             overview.classList.add('hidden');
             details.classList.remove('hidden');
+            form.classList.add('hidden');
             name.textContent = tipperName + ' Tire Details';
             
             const tipper = tippers[tipperName];
@@ -399,10 +484,10 @@
                     <strong>Avg Tread:</strong> ${avgTread.toFixed(2)}%
                 </div>
                 <div class="tire-stats" style="margin-top: 10px;">
-                    <span class="tire-stat green-bg">${counts.good} Good</span>
-                    <span class="tire-stat yellow-bg">${counts.monitor} Monitor</span>
-                    <span class="tire-stat orange-bg">${counts.warning} Warning</span>
-                    <span class="tire-stat red-bg">${counts.critical} Critical</span>
+                    <span class="tire-stat">${counts.good} Good</span>
+                    <span class="tire-stat">${counts.monitor} Monitor</span>
+                    <span class="tire-stat">${counts.warning} Warning</span>
+                    <span class="tire-stat">${counts.critical} Critical</span>
                 </div>
             `;
             
@@ -417,10 +502,13 @@
                 row.innerHTML = `
                     <div class="tire-position">${position}</div>
                     <div class="tire-value">${tread.toFixed(2)}%</div>
-                    <div><span class="status-indicator ${tireStatus.color}-bg">${tireStatus.status.toUpperCase()}</span></div>
+                    <div><span class="status-indicator">${tireStatus.status.toUpperCase()}</span></div>
                 `;
                 detailsContainer.appendChild(row);
             });
+            
+            // Update inspection notes
+            notesContainer.innerHTML = `<strong>Inspection Notes:</strong> ${tipper.inspectionNotes}`;
             
             // Update tire photos
             photosContainer.innerHTML = '';
@@ -432,17 +520,133 @@
             });
         }
 
+        // Function to show inspection form
+        function showInspectionForm(tipperName) {
+            const overview = document.getElementById('tipper-cards-container');
+            const details = document.getElementById('tipper-details');
+            const form = document.getElementById('inspection-form');
+            const tipperSelect = document.getElementById('tipper-select');
+            const tireInputsContainer = document.getElementById('tire-inputs');
+            
+            overview.classList.add('hidden');
+            details.classList.add('hidden');
+            form.classList.remove('hidden');
+            
+            // Populate tipper select options
+            tipperSelect.innerHTML = '<option value="">Select a tipper</option>';
+            Object.keys(tippers).forEach(name => {
+                const option = document.createElement('option');
+                option.value = name;
+                option.textContent = name;
+                if (name === tipperName) option.selected = true;
+                tipperSelect.appendChild(option);
+            });
+            
+            // Generate tire input fields based on selected tipper
+            function generateTireInputs(tipperName) {
+                tireInputsContainer.innerHTML = '';
+                const tirePositions = Object.keys(tippers[tipperName].tyres);
+                tirePositions.forEach(position => {
+                    const div = document.createElement('div');
+                    div.innerHTML = `
+                        <label for="tire-${position}">${position} (%)</label>
+                        <input type="number" id="tire-${position}" name="tire-${position}" min="0" max="100" step="0.01" required>
+                        <div id="tire-${position}-error" class="error-message">Please enter a valid tread (0-100)</div>
+                    `;
+                    tireInputsContainer.appendChild(div);
+                });
+            }
+            
+            if (tipperName) {
+                tipperSelect.value = tipperName;
+                generateTireInputs(tipperName);
+            }
+            
+            // Update tire inputs when tipper changes
+            tipperSelect.addEventListener('change', () => {
+                if (tipperSelect.value) {
+                    generateTireInputs(tipperSelect.value);
+                } else {
+                    tireInputsContainer.innerHTML = '';
+                }
+            });
+        }
+
+        // Function to handle form submission
+        function handleInspectionSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            const tipperName = form.querySelector('#tipper-select').value;
+            const kmr = parseFloat(form.querySelector('#kmr').value);
+            const notes = form.querySelector('#inspection-notes-input').value;
+            const photosInput = form.querySelector('#photos');
+            const tireInputs = form.querySelectorAll('.tire-inputs input[type="number"]');
+            
+            // Validate inputs
+            let isValid = true;
+            if (!tipperName) {
+                document.getElementById('tipper-error').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('tipper-error').style.display = 'none';
+            }
+            
+            if (!kmr || kmr < 0) {
+                document.getElementById('kmr-error').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('kmr-error').style.display = 'none';
+            }
+            
+            const tyres = {};
+            tireInputs.forEach(input => {
+                const value = parseFloat(input.value);
+                const position = input.id.replace('tire-', '');
+                if (isNaN(value) || value < 0 || value > 100) {
+                    document.getElementById(`tire-${position}-error`).style.display = 'block';
+                    isValid = false;
+                } else {
+                    document.getElementById(`tire-${position}-error`).style.display = 'none';
+                    tyres[position] = value;
+                }
+            });
+            
+            if (!isValid) return;
+            
+            // Handle photo uploads (using placeholder URLs for demo)
+            const photos = Array.from(photosInput.files).map((file, index) => 
+                `https://via.placeholder.com/300x200?text=${file.name.replace(/\.[^/.]+$/, '')}`
+            );
+            
+            // Update tipper data
+            tippers[tipperName] = {
+                kmr: kmr,
+                lastInspection: new Date().toISOString().split('T')[0],
+                inspectionNotes: notes || 'No notes provided',
+                tyres: tyres,
+                photos: photos.length ? photos : tippers[tipperName].photos
+            };
+            
+            // Reset form and return to overview
+            form.reset();
+            generateTipperCards();
+            showTipperOverview();
+        }
+
         // Function to show tipper overview
         function showTipperOverview() {
             const overview = document.getElementById('tipper-cards-container');
             const details = document.getElementById('tipper-details');
+            const form = document.getElementById('inspection-form');
             overview.classList.remove('hidden');
             details.classList.add('hidden');
+            form.classList.add('hidden');
         }
 
         // Initialize the dashboard when page loads
         window.onload = function() {
             generateTipperCards();
+            document.getElementById('new-inspection-form').addEventListener('submit', handleInspectionSubmit);
         };
     </script>
 </body>
