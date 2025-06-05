@@ -375,10 +375,10 @@
             
             <div class="status-guide">
                 <h3>Tire Status Guide</h3>
-                <div class="status-guide-item"><span class="status-indicator green">Good</span> > 13.8 mm</div>
-                <div class="status-guide-item"><span class="status-indicator yellow">Monitor</span> 9.2–13.8 mm</div>
-                <div class="status-guide-item"><span class="status-indicator orange">Warning</span> 4.6–9.2 mm</div>
-                <div class="status-guide-item"><span class="status-indicator red">Critical</span> < 4.6 mm</div>
+                <div class="status-guide-item"><span class="status-indicator green">Good</span> > 16.8 mm</div>
+                <div class="status-guide-item"><span class="status-indicator yellow">Monitor</span> 11.2–16.8 mm</div>
+                <div class="status-guide-item"><span class="status-indicator orange">Warning</span> 7.6–11.2 mm</div>
+                <div class="status-guide-item"><span class="status-indicator red">Critical</span> < 5.6 mm</div>
             </div>
         </div>
     </div>
@@ -391,16 +391,16 @@ let tippers = {
         lastInspection: "2023-05-15",
         inspectionNotes: "Minor sidewall damage on L2, recommend close monitoring. R4 shows uneven wear pattern.",
         tyres: {
-            L1: { brand: "Apollo", subbrand: "Terra BT", fittingDate: "2023-01-10", fittingKmr: 0, currentTread: 10.98 },
-            R1: { brand: "Apollo", subbrand: "Terra BT", fittingDate: "2023-01-10", fittingKmr: 0, currentTread: 8.34 },
-            L2: { brand: "BKT", subbrand: "Inline", fittingDate: "2023-01-10", fittingKmr: 0, currentTread: 3.91 },
-            R2: { brand: "BKT", subbrand: "Inline", fittingDate: "2023-01-10", fittingKmr: 0, currentTread: 3.89 },
-            L3: { brand: "CEAT", subbrand: "Castus", fittingDate: "2023-01-10", fittingKmr: 0, currentTread: 5.16 },
-            R3: { brand: "CEAT", subbrand: "Castus", fittingDate: "2023-01-10", fittingKmr: 0, currentTread: 4.85 },
-            L4: { brand: "Apollo", subbrand: "Terra BT Pro", fittingDate: "2023-01-10", fittingKmr: 0, currentTread: 21.67 },
-            R4: { brand: "Apollo", subbrand: "Terra BT Pro", fittingDate: "2023-01-10", fittingKmr: 0, currentTread: 6.05 },
-            L5: { brand: "BKT", subbrand: "Inline Pro", fittingDate: "2023-01-10", fittingKmr: 0, currentTread: 21.17 },
-            R5: { brand: "BKT", subbrand: "Inline Pro", fittingDate: "2023-01-10", fittingKmr: 0, currentTread: 6.17 }
+            L1: { brand: "Apollo", subbrand: "Terra BT", fittingDate: "2023-01-10", runKmr: 0, currentTread: 10.98 },
+            R1: { brand: "Apollo", subbrand: "Terra BT", fittingDate: "2023-01-10", Running kmr: 0, currentTread: 8.34 },
+            L2: { brand: "BKT", subbrand: "Inline", fittingDate: "2023-01-10", Running kmr: 0, currentTread: 3.91 },
+            R2: { brand: "BKT", subbrand: "Inline", fittingDate: "2023-01-10", Running kmr: 0, currentTread: 3.89 },
+            L3: { brand: "CEAT", subbrand: "Castus", fittingDate: "2023-01-10", Running kmr: 0, currentTread: 5.16 },
+            R3: { brand: "CEAT", subbrand: "Castus", fittingDate: "2023-01-10", Running kmr: 0, currentTread: 4.85 },
+            L4: { brand: "Apollo", subbrand: "Terra BT Pro", fittingDate: "2023-01-10", Running kmr: 0, currentTread: 21.67 },
+            R4: { brand: "Apollo", subbrand: "Terra BT Pro", fittingDate: "2023-01-10", Running kmr: 0, currentTread: 6.05 },
+            L5: { brand: "BKT", subbrand: "Inline Pro", fittingDate: "2023-01-10", Running kmr: 0, currentTread: 21.17 },
+            R5: { brand: "BKT", subbrand: "Inline Pro", fittingDate: "2023-01-10", Running kmr: 0, currentTread: 6.17 }
         },
         photos: [
             "https://via.placeholder.com/300x200?text=Front+Left+Tire",
@@ -412,16 +412,16 @@ let tippers = {
         lastInspection: "2023-05-10",
         inspectionNotes: "L3 and R4 critically low, recommend immediate replacement. Alignment check needed.",
         tyres: {
-            L1: { brand: "Apollo", subbrand: "Terra BT", fittingDate: "2023-01-05", fittingKmr: 0, currentTread: 12.96 },
-            R1: { brand: "Apollo", subbrand: "Terra BT", fittingDate: "2023-01-05", fittingKmr: 0, currentTread: 17.35 },
-            L2: { brand: "BKT", subbrand: "Inline", fittingDate: "2023-01-05", fittingKmr: 0, currentTread: 8.80 },
-            R2: { brand: "BKT", subbrand: "Inline", fittingDate: "2023-01-05", fittingKmr: 0, currentTread: 6.19 },
-            L3: { brand: "CEAT", subbrand: "Castus", fittingDate: "2023-01-05", fittingKmr: 0, currentTread: 2.78 },
-            R3: { brand: "CEAT", subbrand: "Castus", fittingDate: "2023-01-05", fittingKmr: 0, currentTread: 8.35 },
-            L4: { brand: "Apollo", subbrand: "Terra BT Pro", fittingDate: "2023-01-05", fittingKmr: 0, currentTread: 2.63 },
-            R4: { brand: "Apollo", subbrand: "Terra BT Pro", fittingDate: "2023-01-05", fittingKmr: 0, currentTread: 2.12 },
-            L5: { brand: "BKT", subbrand: "Inline Pro", fittingDate: "2023-01-05", fittingKmr: 0, currentTread: 5.09 },
-            R5: { brand: "BKT", subbrand: "Inline Pro", fittingDate: "2023-01-05", fittingKmr: 0, currentTread: 9.74 }
+            L1: { brand: "Apollo", subbrand: "Terra BT", fittingDate: "2023-01-05", Running kmr: 0, currentTread: 12.96 },
+            R1: { brand: "Apollo", subbrand: "Terra BT", fittingDate: "2023-01-05", Running kmr: 0, currentTread: 17.35 },
+            L2: { brand: "BKT", subbrand: "Inline", fittingDate: "2023-01-05", Running kmr: 0, currentTread: 8.80 },
+            R2: { brand: "BKT", subbrand: "Inline", fittingDate: "2023-01-05", Running kmr: 0, currentTread: 6.19 },
+            L3: { brand: "CEAT", subbrand: "Castus", fittingDate: "2023-01-05", Running kmr: 0, currentTread: 2.78 },
+            R3: { brand: "CEAT", subbrand: "Castus", fittingDate: "2023-01-05", Running kmr: 0, currentTread: 8.35 },
+            L4: { brand: "Apollo", subbrand: "Terra BT Pro", fittingDate: "2023-01-05", Running kmr: 0, currentTread: 2.63 },
+            R4: { brand: "Apollo", subbrand: "Terra BT Pro", fittingDate: "2023-01-05", Running kmr: 0, currentTread: 2.12 },
+            L5: { brand: "BKT", subbrand: "Inline Pro", fittingDate: "2023-01-05", Running kmr: 0, currentTread: 5.09 },
+            R5: { brand: "BKT", subbrand: "Inline Pro", fittingDate: "2023-01-05", Running kmr: 0, currentTread: 9.74 }
         },
         photos: [
             "https://via.placeholder.com/300x200?text=Front+Right+Tire",
@@ -433,16 +433,16 @@ let tippers = {
         lastInspection: "2023-05-18",
         inspectionNotes: "All tires in acceptable condition. Regular maintenance schedule recommended.",
         tyres: {
-            L1: { brand: "Apollo", subbrand: "Terra BT", fittingDate: "2023-02-01", fittingKmr: 0, currentTread: 18.35 },
-            R1: { brand: "Apollo", subbrand: "Terra BT", fittingDate: "2023-02-01", fittingKmr: 0, currentTread: 17.97 },
-            L2: { brand: "BKT", subbrand: "Inline", fittingDate: "2023-02-01", fittingKmr: 0, currentTread: 6.21 },
-            R2: { brand: "BKT", subbrand: "Inline", fittingDate: "2023-02-01", fittingKmr: 0, currentTread: 5.40 },
-            L3: { brand: "CEAT", subbrand: "Castus", fittingDate: "2023-02-01", fittingKmr: 0, currentTread: 7.26 },
-            R3: { brand: "CEAT", subbrand: "Castus", fittingDate: "2023-02-01", fittingKmr: 0, currentTread: 5.93 },
-            L4: { brand: "Apollo", subbrand: "Terra BT Pro", fittingDate: "2023-02-01", fittingKmr: 0, currentTread: 8.45 },
-            R4: { brand: "Apollo", subbrand: "Terra BT Pro", fittingDate: "2023-02-01", fittingKmr: 0, currentTread: 9.56 },
-            L5: { brand: "BKT", subbrand: "Inline Pro", fittingDate: "2023-02-01", fittingKmr: 0, currentTread: 10.12 },
-            R5: { brand: "BKT", subbrand: "Inline Pro", fittingDate: "2023-02-01", fittingKmr: 0, currentTread: 9.59 }
+            L1: { brand: "Apollo", subbrand: "Terra BT", fittingDate: "2023-02-01", Running kmr: 0, currentTread: 18.35 },
+            R1: { brand: "Apollo", subbrand: "Terra BT", fittingDate: "2023-02-01", Running kmr: 0, currentTread: 17.97 },
+            L2: { brand: "BKT", subbrand: "Inline", fittingDate: "2023-02-01", Running kmr: 0, currentTread: 6.21 },
+            R2: { brand: "BKT", subbrand: "Inline", fittingDate: "2023-02-01", Running kmr: 0, currentTread: 5.40 },
+            L3: { brand: "CEAT", subbrand: "Castus", fittingDate: "2023-02-01", Running kmr: 0, currentTread: 7.26 },
+            R3: { brand: "CEAT", subbrand: "Castus", fittingDate: "2023-02-01", Running kmr: 0, currentTread: 5.93 },
+            L4: { brand: "Apollo", subbrand: "Terra BT Pro", fittingDate: "2023-02-01", Running kmr: 0, currentTread: 8.45 },
+            R4: { brand: "Apollo", subbrand: "Terra BT Pro", fittingDate: "2023-02-01", Running kmr: 0, currentTread: 9.56 },
+            L5: { brand: "BKT", subbrand: "Inline Pro", fittingDate: "2023-02-01", Running kmr: 0, currentTread: 10.12 },
+            R5: { brand: "BKT", subbrand: "Inline Pro", fittingDate: "2023-02-01", Running kmr: 0, currentTread: 9.59 }
         },
         photos: [
             "https://via.placeholder.com/300x200?text=Rear+Left+Tire",
@@ -454,16 +454,16 @@ let tippers = {
         lastInspection: "2023-05-12",
         inspectionNotes: "R21 showing signs of wear, recommend rotation. Overall good condition.",
         tyres: {
-            L1: { brand: "Apollo", subbrand: "Terra BT", fittingDate: "2023-01-15", fittingKmr: 0, currentTread: 15.91 },
-            L21: { brand: "BKT", subbrand: "Inline", fittingDate: "2023-01-15", fittingKmr: 0, currentTread: 13.57 },
-            L22: { brand: "CEAT", subbrand: "Castus", fittingDate: "2023-01-15", fittingKmr: 0, currentTread: 11.21 },
-            L31: { brand: "Apollo", subbrand: "Terra BT Pro", fittingDate: "2023-01-15", fittingKmr: 0, currentTread: 14.32 },
-            L32: { brand: "BKT", subbrand: "Inline Pro", fittingDate: "2023-01-15", fittingKmr: 0, currentTread: 12.46 },
-            R1: { brand: "Apollo", subbrand: "Terra BT", fittingDate: "2023-01-15", fittingKmr: 0, currentTread: 15.30 },
-            R21: { brand: "BKT", subbrand: "Inline", fittingDate: "2023-01-15", fittingKmr: 0, currentTread: 5.59 },
-            R22: { brand: "CEAT", subbrand: "Castus", fittingDate: "2023-01-15", fittingKmr: 0, currentTread: 11.52 },
-            R31: { brand: "Apollo", subbrand: "Terra BT Pro", fittingDate: "2023-01-15", fittingKmr: 0, currentTread: 12.68 },
-            R32: { brand: "BKT", subbrand: "Inline Pro", fittingDate: "2023-01-15", fittingKmr: 0, currentTread: 16.84 }
+            L1: { brand: "Apollo", subbrand: "Terra BT", fittingDate: "2023-01-15", Running kmr: 0, currentTread: 15.91 },
+            L21: { brand: "BKT", subbrand: "Inline", fittingDate: "2023-01-15", Running kmr: 0, currentTread: 13.57 },
+            L22: { brand: "CEAT", subbrand: "Castus", fittingDate: "2023-01-15", Running kmr: 0, currentTread: 11.21 },
+            L31: { brand: "Apollo", subbrand: "Terra BT Pro", fittingDate: "2023-01-15", Running kmr: 0, currentTread: 14.32 },
+            L32: { brand: "BKT", subbrand: "Inline Pro", fittingDate: "2023-01-15", Running kmr: 0, currentTread: 12.46 },
+            R1: { brand: "Apollo", subbrand: "Terra BT", fittingDate: "2023-01-15", Running kmr: 0, currentTread: 15.30 },
+            R21: { brand: "BKT", subbrand: "Inline", fittingDate: "2023-01-15", Running kmr: 0, currentTread: 5.59 },
+            R22: { brand: "CEAT", subbrand: "Castus", fittingDate: "2023-01-15", Running kmr: 0, currentTread: 11.52 },
+            R31: { brand: "Apollo", subbrand: "Terra BT Pro", fittingDate: "2023-01-15", Running kmr: 0, currentTread: 12.68 },
+            R32: { brand: "BKT", subbrand: "Inline Pro", fittingDate: "2023-01-15", Running kmr: 0, currentTread: 16.84 }
         },
         photos: [
             "https://via.placeholder.com/300x200?text=Front+Left+Tire",
@@ -475,16 +475,16 @@ let tippers = {
         lastInspection: "2023-05-08",
         inspectionNotes: "Multiple tires in warning zone, schedule replacement within next month.",
         tyres: {
-            L1: { brand: "Apollo", subbrand: "Terra BT", fittingDate: "2023-01-20", fittingKmr: 0, currentTread: 7.63 },
-            L21: { brand: "BKT", subbrand: "Inline", fittingDate: "2023-01-20", fittingKmr: 0, currentTread: 7.85 },
-            L22: { brand: "CEAT", subbrand: "Castus", fittingDate: "2023-01-20", fittingKmr: 0, currentTread: 10.72 },
-            L31: { brand: "Apollo", subbrand: "Terra BT Pro", fittingDate: "2023-01-20", fittingKmr: 0, currentTread: 5.57 },
-            L32: { brand: "BKT", subbrand: "Inline Pro", fittingDate: "2023-01-20", fittingKmr: 0, currentTread: 6.00 },
-            R1: { brand: "Apollo", subbrand: "Terra BT", fittingDate: "2023-01-20", fittingKmr: 0, currentTread: 10.25 },
-            R24: { brand: "BKT", subbrand: "Inline", fittingDate: "2023-01-20", fittingKmr: 0, currentTread: 7.10 },
-            R22: { brand: "CEAT", subbrand: "Castus", fittingDate: "2023-01-20", fittingKmr: 0, currentTread: 8.01 },
-            R31: { brand: "Apollo", subbrand: "Terra BT Pro", fittingDate: "2023-01-20", fittingKmr: 0, currentTread: 8.20 },
-            R32: { brand: "BKT", subbrand: "Inline Pro", fittingDate: "2023-01-20", fittingKmr: 0, currentTread: 5.84 }
+            L1: { brand: "Apollo", subbrand: "Terra BT", fittingDate: "2023-01-20", Running kmr: 0, currentTread: 7.63 },
+            L21: { brand: "BKT", subbrand: "Inline", fittingDate: "2023-01-20", Running kmr: 0, currentTread: 7.85 },
+            L22: { brand: "CEAT", subbrand: "Castus", fittingDate: "2023-01-20", Running kmr: 0, currentTread: 10.72 },
+            L31: { brand: "Apollo", subbrand: "Terra BT Pro", fittingDate: "2023-01-20", Running kmr: 0, currentTread: 5.57 },
+            L32: { brand: "BKT", subbrand: "Inline Pro", fittingDate: "2023-01-20", Running kmr: 0, currentTread: 6.00 },
+            R1: { brand: "Apollo", subbrand: "Terra BT", fittingDate: "2023-01-20", Running kmr: 0, currentTread: 10.25 },
+            R24: { brand: "BKT", subbrand: "Inline", fittingDate: "2023-01-20", Running kmr: 0, currentTread: 7.10 },
+            R22: { brand: "CEAT", subbrand: "Castus", fittingDate: "2023-01-20", Running kmr: 0, currentTread: 8.01 },
+            R31: { brand: "Apollo", subbrand: "Terra BT Pro", fittingDate: "2023-01-20", Running kmr: 0, currentTread: 8.20 },
+            R32: { brand: "BKT", subbrand: "Inline Pro", fittingDate: "2023-01-20", Running kmr: 0, currentTread: 5.84 }
         },
         photos: [
             "https://via.placeholder.com/300x200?text=Middle+Left+Tire",
@@ -496,16 +496,16 @@ let tippers = {
         lastInspection: "2023-05-20",
         inspectionNotes: "L21 and L22 critically low, replace immediately. Others in good condition.",
         tyres: {
-            L1: { brand: "Apollo", subbrand: "Terra BT", fittingDate: "2023-02-10", fittingKmr: 0, currentTread: 13.60 },
-            L21: { brand: "BKT", subbrand: "Inline", fittingDate: "2023-02-10", fittingKmr: 0, currentTread: 2.10 },
-            L22: { brand: "CEAT", subbrand: "Castus", fittingDate: "2023-02-10", fittingKmr: 0, currentTread: 2.14 },
-            L31: { brand: "Apollo", subbrand: "Terra BT Pro", fittingDate: "2023-02-10", fittingKmr: 0, currentTread: 21.24 },
-            L32: { brand: "BKT", subbrand: "Inline Pro", fittingDate: "2023-02-10", fittingKmr: 0, currentTread: 20.62 },
-            R1: { brand: "Apollo", subbrand: "Terra BT", fittingDate: "2023-02-10", fittingKmr: 0, currentTread: 12.85 },
-            R21: { brand: "BKT", subbrand: "Inline", fittingDate: "2023-02-10", fittingKmr: 0, currentTread: 12.95 },
-            R22: { brand: "CEAT", subbrand: "Castus", fittingDate: "2023-02-10", fittingKmr: 0, currentTread: 11.69 },
-            R31: { brand: "Apollo", subbrand: "Terra BT Pro", fittingDate: "2023-02-10", fittingKmr: 0, currentTread: 18.59 },
-            R32: { brand: "BKT", subbrand: "Inline Pro", fittingDate: "2023-02-10", fittingKmr: 0, currentTread: 9.90 }
+            L1: { brand: "Apollo", subbrand: "Terra BT", fittingDate: "2023-02-10", Running kmr: 0, currentTread: 13.60 },
+            L21: { brand: "BKT", subbrand: "Inline", fittingDate: "2023-02-10", Running kmr: 0, currentTread: 2.10 },
+            L22: { brand: "CEAT", subbrand: "Castus", fittingDate: "2023-02-10", Running kmr: 0, currentTread: 2.14 },
+            L31: { brand: "Apollo", subbrand: "Terra BT Pro", fittingDate: "2023-02-10", Running kmr: 0, currentTread: 21.24 },
+            L32: { brand: "BKT", subbrand: "Inline Pro", fittingDate: "2023-02-10", Running kmr: 0, currentTread: 20.62 },
+            R1: { brand: "Apollo", subbrand: "Terra BT", fittingDate: "2023-02-10", Running kmr: 0, currentTread: 12.85 },
+            R21: { brand: "BKT", subbrand: "Inline", fittingDate: "2023-02-10", Running kmr: 0, currentTread: 12.95 },
+            R22: { brand: "CEAT", subbrand: "Castus", fittingDate: "2023-02-10", Running kmr: 0, currentTread: 11.69 },
+            R31: { brand: "Apollo", subbrand: "Terra BT Pro", fittingDate: "2023-02-10", Running kmr: 0, currentTread: 18.59 },
+            R32: { brand: "BKT", subbrand: "Inline Pro", fittingDate: "2023-02-10", Running kmr: 0, currentTread: 9.90 }
         },
         photos: [
             "https://via.placeholder.com/300x200?text=Rear+Left+Tire",
@@ -637,7 +637,7 @@ let tippers = {
             detailsContainer.innerHTML = '';
             Object.keys(tipper.tyres).forEach(position => {
                 const tire = tipper.tyres[position];
-                const kmrRun = tipper.currentKmr - tire.fittingKmr;
+                const kmrRun = tipper.currentKmr - tire.Running kmr;
                 const tireStatus = getTireStatus(tire.currentTread);
                 
                 const row = document.createElement('div');
@@ -647,7 +647,7 @@ let tippers = {
                     <div class="tire-value">
                         Brand: ${tire.brand}, Subbrand: ${tire.subbrand}, 
                         Fitting Date: ${tire.fittingDate}, 
-                        Fitting KMR: ${tire.fittingKmr.toLocaleString()}, 
+                        Fitting KMR: ${tire.Running kmr.toLocaleString()}, 
                         KMR Run: ${kmrRun.toLocaleString()}, 
                         Tread: ${tire.currentTread.toFixed(2)} mm
                     </div>
@@ -709,7 +709,7 @@ let tippers = {
                     </div>
                     <div class="form-group">
                         <label for="tire-${position}-fitting-kmr">Fitting KMR:</label>
-                        <input type="number" id="tire-${position}-fitting-kmr" name="tire-${position}-fitting-kmr" value="${tire.fittingKmr}" min="0" required>
+                        <input type="number" id="tire-${position}-fitting-kmr" name="tire-${position}-fitting-kmr" value="${tire.Running kmr}" min="0" required>
                     </div>
                     <div class="form-group">
                         <label for="tire-${position}-current-tread">Current Tread (mm):</label>
@@ -734,15 +734,15 @@ let tippers = {
                     const brand = document.getElementById(`tire-${position}-brand`).value;
                     const subbrand = document.getElementById(`tire-${position}-subbrand`).value;
                     const fittingDate = document.getElementById(`tire-${position}-fitting-date`).value;
-                    const fittingKmr = parseInt(document.getElementById(`tire-${position}-fitting-kmr`).value);
+                    const Running kmr = parseInt(document.getElementById(`tire-${position}-fitting-kmr`).value);
                     const currentTread = parseFloat(document.getElementById(`tire-${position}-current-tread`).value);
                     
-                    if (!isNaN(currentTread) && !isNaN(fittingKmr)) {
+                    if (!isNaN(currentTread) && !isNaN(Running kmr)) {
                         newTyres[position] = {
                             brand,
                             subbrand,
                             fittingDate,
-                            fittingKmr,
+                            Running kmr,
                             currentTread
                         };
                     }
